@@ -1,0 +1,333 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>menuoaxaca.com | Logística & Sabor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oax-pink: #ff0080; --oax-blue: #00d4ff; --oax-orange: #ff3e00;
+            --oax-purple: #9d00ff; --oax-green: #00ffa3; --bg: #0d0d0d;
+            --text: #ffffff; --card-bg: #1a1a1a; --border: #333;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding-top: 80px; padding-bottom: 120px; overflow-x: hidden; }
+
+        /* ANIMACIÓN DEL LOGO */
+        @keyframes alebrije-pulse {
+            0% { color: var(--oax-pink); }
+            25% { color: var(--oax-blue); }
+            50% { color: var(--oax-orange); }
+            75% { color: var(--oax-green); }
+            100% { color: var(--oax-purple); }
+        }
+
+        /* HEADER */
+        header { position: fixed; top: 0; width: 100%; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); padding: 15px 5%; border-bottom: 1px solid var(--border); z-index: 5000; display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            font-family: 'Syncopate'; font-size: 1rem; letter-spacing: 1px; cursor: pointer;
+            animation: alebrije-pulse 8s infinite alternate linear; /* Animación aplicada */
+        }
+        .cart-btn { background: var(--text); color: var(--bg); border: none; padding: 8px 15px; border-radius: 20px; font-weight: 800; cursor: pointer; }
+
+        /* PEDIDO ESPECIAL (CONSERJERÍA) */
+        .special-order { margin: 20px 5%; background: var(--card-bg); padding: 20px; border-radius: 15px; border-left: 5px solid var(--oax-purple); }
+        .special-input { width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--border); color: white; font-family: 'Outfit'; font-size: 1rem; padding: 10px 0; outline: none; }
+        .special-input:focus { border-bottom-color: var(--oax-purple); }
+
+        /* GRID DE RESTAURANTES */
+        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 0 5%; }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        .rest-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; transition: 0.3s; border: 1px solid var(--border); }
+        .rest-card img { width: 100%; height: 180px; object-fit: cover; }
+        .rest-info { padding: 20px; }
+        .btn-add { background: transparent; border: 1px solid var(--text); color: var(--text); padding: 8px 15px; border-radius: 5px; cursor: pointer; float: right; font-weight: 600; transition: 0.3s; }
+        .btn-add:hover { background: var(--text); color: var(--bg); }
+
+        /* JUEGOS: BOTONES PAPEL MACHÉ */
+        .mache-cluster { position: fixed; bottom: 30px; left: 5%; z-index: 4000; display: flex; flex-direction: column; gap: 15px; }
+        .mache-item { width: 60px; height: 65px; border: none; color: white; font-size: 1.5rem; clip-path: polygon(5% 5%, 100% 0%, 90% 90%, 5% 100%); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: transform 0.2s; }
+        .mache-item:active { transform: scale(0.9); }
+
+        /* OVERLAYS DE JUEGO */
+        .game-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9000; display: none; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(15px); text-align: center; }
+        
+        /* Juego 1: Ruleta */
+        .wheel-container { width: 280px; height: 280px; border: 8px solid white; border-radius: 50%; position: relative; overflow: hidden; transition: 5s cubic-bezier(0.1, 0, 0, 1); margin: 30px 0; }
+        .wheel-seg { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 900; }
+        
+        /* Juego 2: Laberinto/Grecas */
+        .maze-grid { display: grid; grid-template-columns: repeat(3, 80px); gap: 10px; margin: 30px 0; }
+        .maze-cell { width: 80px; height: 80px; background: #222; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; transition: 0.3s; border: 1px solid #444; }
+        
+        /* Juego 3: Jícara */
+        #jicara-visual { width: 100px; height: 75px; background: #8d5524; border-radius: 40% 40% 50% 50%; border: 4px solid #4a2c11; margin: 40px 0; }
+        .flip-action { animation: flip-complex 1.2s ease-in-out forwards; }
+        @keyframes flip-complex { 0% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-200px) rotate(720deg); } 100% { transform: translateY(0) rotate(1080deg); } }
+
+        /* PANEL DE CARRITO & TARIFAS */
+        #cart-panel { position: fixed; bottom: 0; width: 100%; background: var(--bg); border-top: 2px solid var(--border); padding: 25px 5%; z-index: 6000; transform: translateY(100%); transition: 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67); box-shadow: 0 -15px 40px rgba(0,0,0,0.8); max-height: 85vh; overflow-y: auto; }
+        #cart-panel.open { transform: translateY(0); }
+        
+        .fee-selector { background: var(--card-bg); padding: 15px; border-radius: 12px; margin: 15px 0; border: 1px solid var(--border); }
+        .fee-selector select { width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; background: var(--bg); color: white; border: 1px solid var(--border); font-family: 'Outfit'; font-size: 1rem; }
+        
+        .btn-main { background: var(--text); color: var(--bg); border: none; padding: 18px 40px; border-radius: 50px; font-weight: 900; font-family: 'Syncopate'; cursor: pointer; width: 100%; margin-top: 15px; font-size: 0.9rem; }
+        
+        /* Cupón Flotante (Notificación) */
+        #active-coupon { position: fixed; top: 90px; right: -400px; background: var(--oax-green); color: black; padding: 12px 25px; border-radius: 50px 0 0 50px; font-weight: 800; transition: 0.5s; z-index: 9000; box-shadow: -5px 5px 20px rgba(0,255,163,0.3); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="location.reload()">MENUOAXACA</div>
+    <button class="cart-btn" onclick="toggleCart()">🛒 <span id="cart-count">0</span> | $<span id="header-total">0</span></button>
+</header>
+
+<div id="active-coupon">CUPÓN LISTO ✨</div>
+
+<section class="special-order">
+    <h3 style="font-family:'Syncopate'; font-size:0.8rem; margin:0 0 10px 0; color:var(--oax-purple);">¿NO ESTÁ EN EL MENÚ?</h3>
+    <p style="font-size:0.8rem; opacity:0.7; margin:0 0 10px 0;">Pide desde farmacia, mercado o tu antojo específico.</p>
+    <div style="display:flex; gap:10px;">
+        <input type="text" id="custom-item" class="special-input" placeholder="Ej. 1 kilo de tasajo del Mercado 20...">
+        <button onclick="addCustomOrder()" style="background:var(--oax-purple); border:none; color:white; padding:0 20px; border-radius:8px; font-weight:800; cursor:pointer;">+</button>
+    </div>
+</section>
+
+<main class="grid" id="main-grid"></main>
+
+<div class="mache-cluster">
+    <button class="mache-item" style="background:var(--oax-pink)" onclick="openGame('wheel')">🌮</button>
+    <button class="mache-item" style="background:var(--oax-blue)" onclick="openGame('maze')">🗿</button>
+    <button class="mache-item" style="background:var(--oax-orange)" onclick="openGame('flip')">🥃</button>
+</div>
+
+<div id="cart-panel">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h2 style="font-family:'Syncopate'; font-size:1rem; margin:0;">TU PEDIDO</h2>
+        <button onclick="toggleCart()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    
+    <div id="cart-items" style="font-size:0.95rem; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid var(--border);"></div>
+    
+    <div class="fee-selector">
+        <label style="font-size:0.8rem; font-weight:800; color:var(--oax-green);">📍 DISTANCIA DE ENTREGA</label>
+        <select id="km-select" onchange="updateTotal()">
+            <option value="50">0 a 2 km ($50)</option>
+            <option value="60">2.1 a 3 km ($60)</option>
+            <option value="70">3.1 a 4 km ($70)</option>
+            <option value="80">4.1 a 5 km ($80)</option>
+            <option value="90">5.1 a 6 km ($90)</option>
+            <option value="100">6.1 a 7 km ($100)</option>
+            <option value="110">Más de 7 km ($110+)</option>
+        </select>
+    </div>
+
+    <div id="promo-msg" style="color:var(--oax-pink); font-size:0.85rem; font-weight:800; margin-bottom:10px; height:20px;"></div>
+
+    <div style="display:flex; justify-content:space-between; font-size:0.9rem; opacity:0.8; margin-bottom:5px;">
+        <span>Subtotal (Comida):</span> <span id="summary-food">$0.00</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; font-size:0.9rem; opacity:0.8; margin-bottom:15px;">
+        <span>Costo Envío:</span> <span id="summary-shipping">$0.00</span>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.4rem; border-top:1px dashed var(--border); padding-top:15px;">
+        <span>TOTAL:</span> <span id="total-price" style="color:var(--oax-green);">$0.00</span>
+    </div>
+    
+    <button class="btn-main" onclick="checkoutWhatsApp()">ENVIAR PEDIDO POR WHATSAPP</button>
+</div>
+
+<div id="modal-wheel" class="game-overlay">
+    <h2 style="font-family:'Syncopate'; font-size:1rem; color:var(--oax-pink);">RULETA DE ENVÍOS</h2>
+    <div id="wheel-obj" class="wheel-container"></div>
+    <div style="width:0; height:0; border-left:15px solid transparent; border-right:15px solid transparent; border-top:20px solid white; margin-top:-20px; z-index:8001;"></div>
+    <button class="btn-main" style="width:auto; margin-top:30px; padding:15px 50px;" onclick="spinWheel()">GIRAR</button>
+    <button onclick="closeGames()" style="margin-top:30px; color:white; background:none; border:none; opacity:0.6; font-size:0.8rem; cursor:pointer;">CERRAR</button>
+</div>
+
+<div id="modal-maze" class="game-overlay">
+    <h2 style="font-family:'Syncopate'; font-size:1rem; color:var(--oax-blue);">LABERINTO DE MITLA</h2>
+    <p style="font-size:0.8rem; opacity:0.8;">Toca un glifo para descubrir tu descuento</p>
+    <div class="maze-grid">
+        <div class="maze-cell" onclick="playMaze(this)">⬛</div><div class="maze-cell" onclick="playMaze(this)">⬛</div><div class="maze-cell" onclick="playMaze(this)">⬛</div>
+        <div class="maze-cell" onclick="playMaze(this)">⬛</div><div class="maze-cell" onclick="playMaze(this)">⬛</div><div class="maze-cell" onclick="playMaze(this)">⬛</div>
+        <div class="maze-cell" onclick="playMaze(this)">⬛</div><div class="maze-cell" onclick="playMaze(this)">⬛</div><div class="maze-cell" onclick="playMaze(this)">⬛</div>
+    </div>
+    <button onclick="closeGames()" style="margin-top:30px; color:white; background:none; border:none; opacity:0.6; font-size:0.8rem; cursor:pointer;">CERRAR</button>
+</div>
+
+<div id="modal-flip" class="game-overlay">
+    <h2 style="font-family:'Syncopate'; font-size:1rem; color:var(--oax-orange);">MEZCAL FLIP</h2>
+    <p style="font-size:0.8rem; opacity:0.8;">Si cae de pie, aseguras tu premio</p>
+    <div id="jicara-visual"></div>
+    <button class="btn-main" style="width:auto; background:var(--oax-orange); margin-top:30px;" onclick="flipJicara()">LANZAR JÍCARA</button>
+    <button onclick="closeGames()" style="margin-top:30px; color:white; background:none; border:none; opacity:0.6; font-size:0.8rem; cursor:pointer;">CERRAR</button>
+</div>
+
+<script>
+    // --- LÓGICA CORE: CARRITO Y PRECIOS ---
+    let cart = [];
+    let appliedPromo = null;
+
+    // Menú Simulado
+    const dbMenu = [
+        { id: 1, res: "Itanoní", n: "Tlayuda Sencilla", p: 90, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" },
+        { id: 2, res: "La Popular", n: "Orden de Garnachas", p: 85, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500" },
+        { id: 3, res: "Tierra del Sol", n: "Mole de Caderas", p: 320, img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500" },
+        { id: 4, res: "Las 15 Letras", n: "Empanadas de Amarillo", p: 110, img: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500" }
+    ];
+
+    function renderMenu() {
+        const grid = document.getElementById('main-grid');
+        dbMenu.forEach(item => {
+            grid.innerHTML += `
+                <article class="rest-card">
+                    <img src="${item.img}" alt="${item.n}">
+                    <div class="rest-info">
+                        <h4 style="margin:0; font-family:'Syncopate'; font-size:0.7rem; color:var(--oax-pink);">${item.res}</h4>
+                        <h3 style="margin:5px 0;">${item.n}</h3>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px;">
+                            <span style="font-weight:800; font-size:1.1rem;">$${item.p}</span>
+                            <button class="btn-add" onclick="add('${item.n}', ${item.p})">+ Agregar</button>
+                        </div>
+                    </div>
+                </article>`;
+        });
+    }
+
+    function add(name, price) {
+        cart.push({ n: name, p: price });
+        updateCart();
+        if(!document.getElementById('cart-panel').classList.contains('open')) toggleCart();
+    }
+
+    // El famoso "Pedido Especial" (Lo que sea)
+    function addCustomOrder() {
+        const input = document.getElementById('custom-item');
+        const req = input.value.trim();
+        if(req !== "") {
+            cart.push({ n: "👑 Pedido Esp: " + req, p: 0 }); // Precio 0 a confirmar con repartidor
+            input.value = "";
+            updateCart();
+            toggleCart();
+        }
+    }
+
+    function updateCart() {
+        document.getElementById('cart-count').innerText = cart.length;
+        const list = document.getElementById('cart-items');
+        list.innerHTML = cart.map((i, idx) => `
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                <span style="max-width:70%;">${i.n}</span>
+                <span>${i.p > 0 ? '$'+i.p : '<i>Por cotizar</i>'}</span>
+            </div>
+        `).join('');
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const subFood = cart.reduce((acc, i) => acc + i.p, 0);
+        let baseShipping = parseFloat(document.getElementById('km-select').value);
+        let finalShipping = baseShipping;
+
+        if(appliedPromo) {
+            if(appliedPromo.type === 'pct') finalShipping = baseShipping * (1 - appliedPromo.val/100);
+            else finalShipping = appliedPromo.val;
+            
+            document.getElementById('promo-msg').innerText = `🔥 CUPÓN APLICADO: ${appliedPromo.title}`;
+        }
+
+        const total = subFood + finalShipping;
+
+        document.getElementById('header-total').innerText = total.toFixed(2);
+        document.getElementById('summary-food').innerText = `$${subFood.toFixed(2)}`;
+        document.getElementById('summary-shipping').innerText = `$${finalShipping.toFixed(2)}`;
+        document.getElementById('total-price').innerText = `$${total.toFixed(2)}`;
+    }
+
+    function toggleCart() { document.getElementById('cart-panel').classList.toggle('open'); }
+
+    // --- LÓGICA DE JUEGOS Y PROBABILIDAD PONDERADA ---
+    const pool = [
+        { title: "20% DESC EN ENVÍO", type: 'pct', val: 20, p: 0.45, color: '#ff0080' },
+        { title: "30% DESC EN ENVÍO", type: 'pct', val: 30, p: 0.30, color: '#00d4ff' },
+        { title: "ENVÍO A $40", type: 'fixed', val: 40, p: 0.15, color: '#ff3e00' },
+        { title: "ENVÍO A $30", type: 'fixed', val: 30, p: 0.07, color: '#00ffa3' },
+        { title: "50% DESC EN ENVÍO", type: 'pct', val: 50, p: 0.03, color: '#9d00ff' }
+    ];
+
+    function getPrize() {
+        let r = Math.random(), acc = 0;
+        for(let prize of pool) { acc += prize.p; if(r <= acc) return prize; }
+        return pool[0];
+    }
+
+    function showWin(prize) {
+        appliedPromo = prize;
+        updateTotal();
+        const notification = document.getElementById('active-coupon');
+        notification.innerText = `GANASTE: ${prize.title} 🏷️`;
+        notification.style.right = "0";
+        setTimeout(() => closeGames(), 1500);
+    }
+
+    function openGame(g) { closeGames(); document.getElementById('modal-'+g).style.display = 'flex'; }
+    function closeGames() { document.querySelectorAll('.game-overlay').forEach(el => el.style.display='none'); }
+
+    // Setup Ruleta Visual
+    const wheel = document.getElementById('wheel-obj');
+    const visualOrder = [0,1,0,2,0,1,4,0,1,3];
+    visualOrder.forEach((vIdx, i) => {
+        const seg = document.createElement('div');
+        seg.className = 'wheel-seg';
+        seg.style.backgroundColor = pool[vIdx].color;
+        seg.style.transform = `rotate(${i*36}deg) skewY(54deg)`;
+        seg.innerHTML = `<span style="transform: skewY(-54deg) rotate(-18deg) translateY(-40px);">${pool[vIdx].val}${pool[vIdx].type==='pct'?'%':'$'}</span>`;
+        wheel.appendChild(seg);
+    });
+
+    // Disparadores de Juego
+    function spinWheel() {
+        document.getElementById('wheel-obj').style.transform = `rotate(${3600 + Math.floor(Math.random()*360)}deg)`;
+        setTimeout(() => showWin(getPrize()), 5200);
+    }
+    
+    function playMaze(cell) {
+        cell.innerHTML = "🌀"; cell.style.background = "var(--oax-blue)";
+        setTimeout(() => { cell.innerHTML = "✨"; showWin(getPrize()); }, 800);
+    }
+
+    function flipJicara() {
+        document.getElementById('jicara-visual').classList.add('flip-action');
+        setTimeout(() => { 
+            document.getElementById('jicara-visual').classList.remove('flip-action'); 
+            showWin(getPrize()); 
+        }, 1200);
+    }
+
+    // --- CHECKOUT WHATSAPP ---
+    function checkoutWhatsApp() {
+        if(cart.length === 0) return alert("Tu carrito está vacío.");
+        let text = "Hola menuoaxaca.com, quiero pedir:\n\n";
+        cart.forEach(i => { text += `• ${i.n} ${i.p > 0 ? '($'+i.p+')' : ''}\n`; });
+        
+        let km = document.getElementById('km-select').options[document.getElementById('km-select').selectedIndex].text;
+        text += `\n📍 Distancia: ${km}\n`;
+        if(appliedPromo) text += `🏷️ Promoción Ganada: ${appliedPromo.title}\n`;
+        text += `\n💰 Total aproximado: ${document.getElementById('total-price').innerText}\n\n`;
+        text += "¿Me confirman que un repartidor toma mi pedido?";
+
+        const phone = "529510000000"; // CAMBIA ESTO POR TU NÚMERO DE WHATSAPP
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // Inicializar
+    renderMenu();
+</script>
+</body>
+</html>
