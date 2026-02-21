@@ -1,5 +1,23 @@
 <html lang="es">
 <head>
+  <title>menuoaxaca.com | Logística & Sabor</title>
+<meta name="description" content="Pide comida de los mejores restaurantes y mercados de Oaxaca. Logística premium, pedidos especiales y juegos con premios.">
+<meta name="keywords" content="Oaxaca, Comida, Domicilio, Mezcal, Tlayudas, Alfonsina, Mercado 20 de Noviembre, Delivery">
+<meta name="author" content="menuoaxaca.com">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.menuoaxaca.com/"> <meta property="og:title" content="menuoaxaca.com | El Sabor de Oaxaca en tu Puerta">
+<meta property="og:description" content="Pide de Alfonsina, Itanoní, Mercados y más. ¡Juega en nuestra app y gana descuentos en tu envío!">
+<meta property="og:image" content="https://www.menuoaxaca.com/og-image.jpg"> <meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.menuoaxaca.com/">
+<meta property="twitter:title" content="menuoaxaca.com | Logística & Sabor">
+<meta property="twitter:description" content="La forma más vibrante de pedir comida en Oaxaca.">
+<meta property="twitter:image" content="https://www.menuoaxaca.com/og-image.jpg">
+
+<link rel="icon" type="image/png" href="https://www.menuoaxaca.com/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>menuoaxaca.com | Logística & Sabor</title>
@@ -12,9 +30,20 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding-top: 80px; padding-bottom: 120px; overflow-x: hidden; }
+        
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            margin: 0; 
+            padding-top: 140px; 
+            padding-bottom: 120px; 
+            overflow-x: hidden; 
+        }
 
-        /* ANIMACIÓN DEL LOGO */
+        /* BLOQUEO DE SCROLL FONDO */
+        body.no-scroll { overflow: hidden; }
+
         @keyframes alebrije-pulse {
             0% { color: var(--oax-pink); }
             25% { color: var(--oax-blue); }
@@ -25,58 +54,64 @@
 
         /* HEADER */
         header { position: fixed; top: 0; width: 100%; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); padding: 15px 5%; border-bottom: 1px solid var(--border); z-index: 5000; display: flex; justify-content: space-between; align-items: center; }
-        .logo { 
-            font-family: 'Syncopate'; font-size: 1rem; letter-spacing: 1px; cursor: pointer;
-            animation: alebrije-pulse 8s infinite alternate linear; /* Animación aplicada */
-        }
+        .logo { font-family: 'Syncopate'; font-size: 1rem; letter-spacing: 1px; cursor: pointer; animation: alebrije-pulse 8s infinite alternate linear; }
         .cart-btn { background: var(--text); color: var(--bg); border: none; padding: 8px 15px; border-radius: 20px; font-weight: 800; cursor: pointer; }
 
-        /* PEDIDO ESPECIAL (CONSERJERÍA) */
+        /* CATEGORÍAS SLIDER */
+        .category-wrapper { position: fixed; top: 58px; width: 100%; background: var(--bg); z-index: 4500; border-bottom: 1px solid var(--border); }
+        .category-slider { 
+            display: flex; overflow-x: auto; 
+            -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; 
+            padding: 15px 5%; gap: 15px; scrollbar-width: none; -ms-overflow-style: none; 
+        }
+        .category-slider::-webkit-scrollbar { display: none; }
+        .cat-item { flex: 0 0 auto; padding: 8px 20px; border-radius: 30px; border: 1px solid var(--border); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s; white-space: nowrap; }
+        .cat-item.active { background: var(--oax-pink); border-color: var(--oax-pink); color: white; }
+
+        /* PEDIDO ESPECIAL */
         .special-order { margin: 20px 5%; background: var(--card-bg); padding: 20px; border-radius: 15px; border-left: 5px solid var(--oax-purple); }
         .special-input { width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--border); color: white; font-family: 'Outfit'; font-size: 1rem; padding: 10px 0; outline: none; }
         .special-input:focus { border-bottom-color: var(--oax-purple); }
 
-        /* GRID DE RESTAURANTES */
-        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 0 5%; }
+        /* GRID RESPONSIVO */
+        .grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; padding: 0 5%; }
         @media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-        .rest-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; transition: 0.3s; border: 1px solid var(--border); }
-        .rest-card img { width: 100%; height: 180px; object-fit: cover; }
+        @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+        
+        .rest-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; transition: transform 0.3s; border: 1px solid var(--border); }
+        .rest-card:hover { transform: translateY(-5px); }
+        .rest-card img { width: 100%; height: 200px; object-fit: cover; }
         .rest-info { padding: 20px; }
         .btn-add { background: transparent; border: 1px solid var(--text); color: var(--text); padding: 8px 15px; border-radius: 5px; cursor: pointer; float: right; font-weight: 600; transition: 0.3s; }
         .btn-add:hover { background: var(--text); color: var(--bg); }
 
-        /* JUEGOS: BOTONES PAPEL MACHÉ */
+        /* JUEGOS FLOTANTES */
         .mache-cluster { position: fixed; bottom: 30px; left: 5%; z-index: 4000; display: flex; flex-direction: column; gap: 15px; }
         .mache-item { width: 60px; height: 65px; border: none; color: white; font-size: 1.5rem; clip-path: polygon(5% 5%, 100% 0%, 90% 90%, 5% 100%); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: transform 0.2s; }
         .mache-item:active { transform: scale(0.9); }
 
-        /* OVERLAYS DE JUEGO */
-        .game-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9000; display: none; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(15px); text-align: center; }
+        /* OVERLAYS JUEGOS */
+        .game-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9000; display: none; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(15px); text-align: center; overscroll-behavior: contain; }
         
-        /* Juego 1: Ruleta */
         .wheel-container { width: 280px; height: 280px; border: 8px solid white; border-radius: 50%; position: relative; overflow: hidden; transition: 5s cubic-bezier(0.1, 0, 0, 1); margin: 30px 0; }
         .wheel-seg { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 900; }
         
-        /* Juego 2: Laberinto/Grecas */
         .maze-grid { display: grid; grid-template-columns: repeat(3, 80px); gap: 10px; margin: 30px 0; }
         .maze-cell { width: 80px; height: 80px; background: #222; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; transition: 0.3s; border: 1px solid #444; }
         
-        /* Juego 3: Jícara */
         #jicara-visual { width: 100px; height: 75px; background: #8d5524; border-radius: 40% 40% 50% 50%; border: 4px solid #4a2c11; margin: 40px 0; }
         .flip-action { animation: flip-complex 1.2s ease-in-out forwards; }
         @keyframes flip-complex { 0% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-200px) rotate(720deg); } 100% { transform: translateY(0) rotate(1080deg); } }
 
-        /* PANEL DE CARRITO & TARIFAS */
-        #cart-panel { position: fixed; bottom: 0; width: 100%; background: var(--bg); border-top: 2px solid var(--border); padding: 25px 5%; z-index: 6000; transform: translateY(100%); transition: 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67); box-shadow: 0 -15px 40px rgba(0,0,0,0.8); max-height: 85vh; overflow-y: auto; }
+        /* CARRITO */
+        #cart-panel { position: fixed; bottom: 0; width: 100%; background: var(--bg); border-top: 2px solid var(--border); padding: 25px 5%; z-index: 6000; transform: translateY(100%); transition: 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67); box-shadow: 0 -15px 40px rgba(0,0,0,0.8); max-height: 85vh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding-bottom: calc(25px + env(safe-area-inset-bottom)); }
         #cart-panel.open { transform: translateY(0); }
-        
         .fee-selector { background: var(--card-bg); padding: 15px; border-radius: 12px; margin: 15px 0; border: 1px solid var(--border); }
-        .fee-selector select { width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; background: var(--bg); color: white; border: 1px solid var(--border); font-family: 'Outfit'; font-size: 1rem; }
+        .fee-selector select { width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; background: var(--bg); color: white; border: 1px solid var(--border); font-family: 'Outfit'; }
         
         .btn-main { background: var(--text); color: var(--bg); border: none; padding: 18px 40px; border-radius: 50px; font-weight: 900; font-family: 'Syncopate'; cursor: pointer; width: 100%; margin-top: 15px; font-size: 0.9rem; }
         
-        /* Cupón Flotante (Notificación) */
-        #active-coupon { position: fixed; top: 90px; right: -400px; background: var(--oax-green); color: black; padding: 12px 25px; border-radius: 50px 0 0 50px; font-weight: 800; transition: 0.5s; z-index: 9000; box-shadow: -5px 5px 20px rgba(0,255,163,0.3); }
+        #active-coupon { position: fixed; top: 130px; right: -400px; background: var(--oax-green); color: black; padding: 12px 25px; border-radius: 50px 0 0 50px; font-weight: 800; transition: 0.5s; z-index: 9000; box-shadow: -5px 5px 20px rgba(0,255,163,0.3); }
     </style>
 </head>
 <body>
@@ -86,13 +121,24 @@
     <button class="cart-btn" onclick="toggleCart()">🛒 <span id="cart-count">0</span> | $<span id="header-total">0</span></button>
 </header>
 
+<div class="category-wrapper">
+    <div class="category-slider" id="cat-slider">
+        <div class="cat-item active" onclick="filterMenu('Todos', this)">✨ Todos</div>
+        <div class="cat-item" onclick="filterMenu('Gourmet', this)">🍴 Gourmet</div>
+        <div class="cat-item" onclick="filterMenu('Tradicional', this)">🥘 Tradicional</div>
+        <div class="cat-item" onclick="filterMenu('Mercados', this)">🏙️ Mercados</div>
+        <div class="cat-item" onclick="filterMenu('Antojos', this)">🌮 Antojos</div>
+        <div class="cat-item" onclick="filterMenu('Bebidas', this)">🥃 Bebidas</div>
+    </div>
+</div>
+
 <div id="active-coupon">CUPÓN LISTO ✨</div>
 
 <section class="special-order">
     <h3 style="font-family:'Syncopate'; font-size:0.8rem; margin:0 0 10px 0; color:var(--oax-purple);">¿NO ESTÁ EN EL MENÚ?</h3>
     <p style="font-size:0.8rem; opacity:0.7; margin:0 0 10px 0;">Pide desde farmacia, mercado o tu antojo específico.</p>
     <div style="display:flex; gap:10px;">
-        <input type="text" id="custom-item" class="special-input" placeholder="Ej. 1 kilo de tasajo del Mercado 20...">
+        <input type="text" id="custom-item" class="special-input" placeholder="Ej. 1/2 kilo de Tasajo del 20 de Nov...">
         <button onclick="addCustomOrder()" style="background:var(--oax-purple); border:none; color:white; padding:0 20px; border-radius:8px; font-weight:800; cursor:pointer;">+</button>
     </div>
 </section>
@@ -170,29 +216,36 @@
 </div>
 
 <script>
-    // --- LÓGICA CORE: CARRITO Y PRECIOS ---
     let cart = [];
     let appliedPromo = null;
 
-    // Menú Simulado
+    // BASE DE DATOS INTEGRADA CON CATEGORÍAS
     const dbMenu = [
-        { id: 1, res: "Itanoní", n: "Tlayuda Sencilla", p: 90, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" },
-        { id: 2, res: "La Popular", n: "Orden de Garnachas", p: 85, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500" },
-        { id: 3, res: "Tierra del Sol", n: "Mole de Caderas", p: 320, img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500" },
-        { id: 4, res: "Las 15 Letras", n: "Empanadas de Amarillo", p: 110, img: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500" }
+        { id: 1, cat: "Gourmet", res: "Alfonsina", n: "Mole de Novia (Blanco)", p: 280, img: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=500" },
+        { id: 2, cat: "Tradicional", res: "Las 15 Letras", n: "Trilogía de Moles", p: 310, img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500" },
+        { id: 3, cat: "Antojos", res: "Pasillo de Humo", n: "Tlayuda con Tasajo Crujiente", p: 185, img: "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?w=500" },
+        { id: 4, cat: "Mercados", res: "Mercado 20 de Noviembre", n: "Pan de Yema (Pieza)", p: 45, img: "https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=500" },
+        { id: 5, cat: "Gourmet", res: "Levadura de Olla", n: "Ensalada de Tomates Ancestrales", p: 195, img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" },
+        { id: 6, cat: "Bebidas", res: "Sabina Sabe", n: "Mezcal de la Casa 750ml", p: 550, img: "https://images.unsplash.com/photo-1516997121675-4c2d04fe1301?w=500" },
+        { id: 7, cat: "Tradicional", res: "La Popular", n: "Orden de Garnachas", p: 95, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500" },
+        { id: 8, cat: "Antojos", res: "Itanoní", n: "Tetela de Quesillo", p: 65, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" }
     ];
 
-    function renderMenu() {
+    // RENDERIZADO CON FILTRO
+    function renderMenu(category = 'Todos') {
         const grid = document.getElementById('main-grid');
-        dbMenu.forEach(item => {
+        grid.innerHTML = "";
+        const filtered = category === 'Todos' ? dbMenu : dbMenu.filter(item => item.cat === category);
+        
+        filtered.forEach(item => {
             grid.innerHTML += `
                 <article class="rest-card">
                     <img src="${item.img}" alt="${item.n}">
                     <div class="rest-info">
-                        <h4 style="margin:0; font-family:'Syncopate'; font-size:0.7rem; color:var(--oax-pink);">${item.res}</h4>
-                        <h3 style="margin:5px 0;">${item.n}</h3>
+                        <h4 style="margin:0; font-family:'Syncopate'; font-size:0.6rem; color:var(--oax-pink);">${item.res}</h4>
+                        <h3 style="margin:5px 0; font-size:1.1rem;">${item.n}</h3>
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px;">
-                            <span style="font-weight:800; font-size:1.1rem;">$${item.p}</span>
+                            <span style="font-weight:800; font-size:1.2rem;">$${item.p}</span>
                             <button class="btn-add" onclick="add('${item.n}', ${item.p})">+ Agregar</button>
                         </div>
                     </div>
@@ -200,31 +253,37 @@
         });
     }
 
+    function filterMenu(cat, element) {
+        document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+        element.classList.add('active');
+        renderMenu(cat);
+        element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    // LÓGICA DEL CARRITO
     function add(name, price) {
         cart.push({ n: name, p: price });
         updateCart();
         if(!document.getElementById('cart-panel').classList.contains('open')) toggleCart();
     }
 
-    // El famoso "Pedido Especial" (Lo que sea)
     function addCustomOrder() {
         const input = document.getElementById('custom-item');
-        const req = input.value.trim();
-        if(req !== "") {
-            cart.push({ n: "👑 Pedido Esp: " + req, p: 0 }); // Precio 0 a confirmar con repartidor
+        if(input.value.trim() !== "") {
+            cart.push({ n: "👑 Pedido Esp: " + input.value, p: 0 });
             input.value = "";
             updateCart();
-            toggleCart();
+            if(!document.getElementById('cart-panel').classList.contains('open')) toggleCart();
         }
     }
 
     function updateCart() {
         document.getElementById('cart-count').innerText = cart.length;
         const list = document.getElementById('cart-items');
-        list.innerHTML = cart.map((i, idx) => `
+        list.innerHTML = cart.map((i) => `
             <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                <span style="max-width:70%;">${i.n}</span>
-                <span>${i.p > 0 ? '$'+i.p : '<i>Por cotizar</i>'}</span>
+                <span style="max-width:70%; font-size:0.9rem;">${i.n}</span>
+                <span>${i.p > 0 ? '$'+i.p : '<i>Cotizando...</i>'}</span>
             </div>
         `).join('');
         updateTotal();
@@ -238,21 +297,24 @@
         if(appliedPromo) {
             if(appliedPromo.type === 'pct') finalShipping = baseShipping * (1 - appliedPromo.val/100);
             else finalShipping = appliedPromo.val;
-            
             document.getElementById('promo-msg').innerText = `🔥 CUPÓN APLICADO: ${appliedPromo.title}`;
         }
 
         const total = subFood + finalShipping;
 
-        document.getElementById('header-total').innerText = total.toFixed(2);
+        document.getElementById('header-total').innerText = total.toFixed(0);
         document.getElementById('summary-food').innerText = `$${subFood.toFixed(2)}`;
         document.getElementById('summary-shipping').innerText = `$${finalShipping.toFixed(2)}`;
         document.getElementById('total-price').innerText = `$${total.toFixed(2)}`;
     }
 
-    function toggleCart() { document.getElementById('cart-panel').classList.toggle('open'); }
+    function toggleCart() { 
+        const panel = document.getElementById('cart-panel');
+        panel.classList.toggle('open'); 
+        document.body.classList.toggle('no-scroll', panel.classList.contains('open'));
+    }
 
-    // --- LÓGICA DE JUEGOS Y PROBABILIDAD PONDERADA ---
+    // LÓGICA DE JUEGOS Y PROBABILIDADES
     const pool = [
         { title: "20% DESC EN ENVÍO", type: 'pct', val: 20, p: 0.45, color: '#ff0080' },
         { title: "30% DESC EN ENVÍO", type: 'pct', val: 30, p: 0.30, color: '#00d4ff' },
@@ -276,10 +338,18 @@
         setTimeout(() => closeGames(), 1500);
     }
 
-    function openGame(g) { closeGames(); document.getElementById('modal-'+g).style.display = 'flex'; }
-    function closeGames() { document.querySelectorAll('.game-overlay').forEach(el => el.style.display='none'); }
+    function openGame(g) { 
+        closeGames(); 
+        document.getElementById('modal-'+g).style.display = 'flex'; 
+        document.body.classList.add('no-scroll');
+    }
+    
+    function closeGames() { 
+        document.querySelectorAll('.game-overlay').forEach(el => el.style.display='none'); 
+        document.body.classList.remove('no-scroll');
+    }
 
-    // Setup Ruleta Visual
+    // VISUALES DE LOS JUEGOS
     const wheel = document.getElementById('wheel-obj');
     const visualOrder = [0,1,0,2,0,1,4,0,1,3];
     visualOrder.forEach((vIdx, i) => {
@@ -291,7 +361,6 @@
         wheel.appendChild(seg);
     });
 
-    // Disparadores de Juego
     function spinWheel() {
         document.getElementById('wheel-obj').style.transform = `rotate(${3600 + Math.floor(Math.random()*360)}deg)`;
         setTimeout(() => showWin(getPrize()), 5200);
@@ -310,7 +379,7 @@
         }, 1200);
     }
 
-    // --- CHECKOUT WHATSAPP ---
+    // CHECKOUT WHATSAPP (COMPLETO DEL MASTER)
     function checkoutWhatsApp() {
         if(cart.length === 0) return alert("Tu carrito está vacío.");
         let text = "Hola menuoaxaca.com, quiero pedir:\n\n";
@@ -322,11 +391,11 @@
         text += `\n💰 Total aproximado: ${document.getElementById('total-price').innerText}\n\n`;
         text += "¿Me confirman que un repartidor toma mi pedido?";
 
-        const phone = "529510000000"; // CAMBIA ESTO POR TU NÚMERO DE WHATSAPP
+        const phone = "529510000000"; // CAMBIAR NÚMERO
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    // Inicializar
+    // INICIALIZAR
     renderMenu();
 </script>
 </body>
