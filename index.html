@@ -282,14 +282,27 @@
     }
 }
 
-    function renderCart() {
-        document.getElementById('cart-items').innerHTML = cart.map((item, i) => `
-            <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #111; padding-bottom:10px;">
-                <div><small style="color:var(--oax-pink);">${item.res}</small><div>${item.n}</div></div>
-                <div style="display:flex; align-items:center; gap:12px;"><b>$${item.p}</b><span onclick="remove(${i})" style="color:var(--oax-pink); font-size:1.8rem; cursor:pointer;">&times;</span></div>
+   function renderCart() {
+    document.getElementById('cart-items').innerHTML = cart.map((item, i) => {
+        // Lógica para mostrar el precio o la palabra "Cotizando"
+        const precioMostrar = (item.p === "Cotizando" || item.p === 0) 
+            ? `<span style="color:var(--oax-pink); font-weight:900;">Cotizando</span>` 
+            : `$${item.p}`;
+
+        return `
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid var(--border); padding-bottom:10px;">
+                <div>
+                    <small style="color:var(--oax-pink); font-family:'Syncopate'; font-size:0.5rem;">${item.res}</small>
+                    <div style="font-size:0.9rem; font-weight:600;">${item.n}</div>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <b style="font-size:0.9rem;">${precioMostrar}</b>
+                    <span onclick="remove(${i})" style="color:var(--oax-pink); cursor:pointer; font-size:1.5rem; line-height:1;">&times;</span>
+                </div>
             </div>
-        `).join('');
-    }
+        `;
+    }).join('');
+}
 
     function remove(i) { cart.splice(i, 1); save(); notify("Item removido"); }
     function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
