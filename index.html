@@ -17,6 +17,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
 
     <style>
+        /* Estilo base del botón del restaurante */
+.res-link { 
+    display: inline-flex; 
+    color: var(--oax-pink); 
+    font-family: 'Syncopate'; 
+    font-size: 0.55rem; 
+    padding: 8px 12px; 
+    border-radius: 8px; 
+    margin-bottom: 10px; 
+    border: 1px solid var(--border); 
+    text-decoration: none;
+    transition: all 0.3s ease; /* Esto hace que el efecto sea suave */
+    cursor: pointer;
+}
+
+/* EFECTO HOVER: Lo que pasa cuando pasas el mouse */
+.res-link:hover {
+    background: var(--oax-pink); /* Se llena de rosa */
+    color: #ffffff;             /* Letras blancas */
+    border-color: #ffffff;      /* Borde blanco */
+    box-shadow: 0 0 15px var(--oax-pink); /* Brillo neón */
+    transform: scale(1.05);     /* Crece un poquito */
+}
         :root {
             --oax-pink: #ff0080; 
             --bg: #000000;       
