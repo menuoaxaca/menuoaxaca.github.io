@@ -141,7 +141,10 @@ body.day-mode {
 <body>
 
 <header>
+   
     <div class="logo" onclick="location.reload()">MENUOAXACA</div>
+     <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
+    🌙 </button>
     <button class="cart-trigger" onclick="toggleCart()">🛒 <span id="c-count">0</span> | $<span id="c-total">0</span></button>
 </header>
 
@@ -194,6 +197,33 @@ body.day-mode {
 </div>
 
 <script>
+    function toggleTheme() {
+    // 1. Cambia la clase en el body
+    document.body.classList.toggle('day-mode');
+    
+    // 2. Detecta si ahora estamos en modo día
+    const isDay = document.body.classList.contains('day-mode');
+    const btn = document.getElementById('theme-btn');
+    
+    // 3. Cambia el icono según el modo
+    if (isDay) {
+        btn.innerText = '☀️'; // Icono de Sol
+        notify("Modo Día Activado"); // Opcional: mensaje visual
+    } else {
+        btn.innerText = '🌙'; // Icono de Luna
+        notify("Modo Noche Activado");
+    }
+    
+    // 4. Opcional: Guardar la preferencia del usuario
+    localStorage.setItem('theme', isDay ? 'day' : 'night');
+}
+
+// Al cargar la página, revisar si ya había una preferencia guardada
+window.onload = () => {
+    if (localStorage.getItem('theme') === 'day') {
+        toggleTheme();
+    }
+};
     const menus = {
         rest: {
             t: "RESTAURANTES",
