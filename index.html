@@ -261,12 +261,26 @@
     }
 
     function updateUI() {
-        const sub = cart.reduce((a, b) => a + b.p, 0);
-        const ship = parseInt(document.getElementById('ship-zone').value);
-        document.getElementById('c-count').innerText = cart.length;
-        document.getElementById('c-total').innerText = sub + ship;
-        document.getElementById('final-total').innerText = `$${sub + ship}`;
+    // 1. Filtramos solo los precios numéricos para el subtotal
+    const sub = cart.reduce((a, b) => a + (typeof b.p === 'number' ? b.p : 0), 0);
+    const ship = parseInt(document.getElementById('ship-zone').value);
+    
+    document.getElementById('c-count').innerText = cart.length;
+
+    // 2. Aquí aplicamos la lógica de "Cotizando"
+    const totalDisplay = document.getElementById('final-total');
+    
+    if (sub === 0 && cart.length > 0) {
+        // Si hay cosas pero nada tiene precio fijo (solo pedidos especiales)
+        totalDisplay.innerText = "Cotizando";
+    } else if (sub > 0) {
+        // Si hay productos con precio, sumamos el envío
+        totalDisplay.innerText = `$${sub + ship}`;
+    } else {
+        // Si el carrito está vacío
+        totalDisplay.innerText = "$0";
     }
+}
 
     function renderCart() {
         document.getElementById('cart-items').innerHTML = cart.map((item, i) => `
