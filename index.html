@@ -251,7 +251,7 @@ window.onload = () => {
         }
     };
 
-   const db = [
+  const db = [
     // 1-10: Los Clásicos de Oro
     { id: 1, cat: '🥘 Tradicional', res: 'El Negro', url: 'https://menuoaxaca.com/elnegro', n: 'Tlayuda con Tasajo', p: 185, img: 'https://images.unsplash.com/photo-1624300629298-e9de39c13be5?w=700' },
     { id: 2, cat: '🍴 Gourmet', res: 'Alfonsina', url: 'https://menuoaxaca.com/alfonsina', n: 'Mole Blanco', p: 295, img: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=700' },
@@ -300,7 +300,7 @@ window.onload = () => {
     { id: 39, cat: '🌮 Antojos', res: 'Quesadillas de la Reforma', url: 'https://menuoaxaca.com/reforma', n: 'Quesadilla de Flor de Calabaza', p: 45, img: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=700' },
     { id: 40, cat: '🥘 Tradicional', res: 'Restaurante Tlamanalli', url: 'https://menuoaxaca.com/tlamanalli', n: 'Sopa de Calabaza y Elote', p: 180, img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=700' },
 
-    // 41-50: El Cierre Maestro
+    // 41-50: El Cierre de la Primera Tanda
     { id: 41, cat: '🍴 Gourmet', res: 'Zandunga', url: 'https://menuoaxaca.com/zandunga', n: 'Garnachas Istmeñas (Orden)', p: 160, img: 'https://images.unsplash.com/photo-1593560704563-f176a2eb61db?w=700' },
     { id: 42, cat: '🥃 Mezcal', res: 'Expendio Tradición', url: 'https://menuoaxaca.com/tradicion', n: 'Cóctel de Mezcal con Maracuyá', p: 140, img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700' },
     { id: 43, cat: '🥘 Tradicional', res: 'La Popular', url: 'https://menuoaxaca.com/lapopular', n: 'Costilla en Salsa de Chicatana', p: 275, img: 'https://images.unsplash.com/photo-1544124499-58912cbddaad?w=700' },
@@ -310,7 +310,67 @@ window.onload = () => {
     { id: 47, cat: '🍹 Bebidas', res: 'Boulenc', url: 'https://menuoaxaca.com/boulenc', n: 'Kombucha Artesanal de la Casa', p: 85, img: 'https://images.unsplash.com/photo-1556881286-fc6915169721?w=700' },
     { id: 48, cat: '🥘 Tradicional', res: 'Las Quince Letras', url: 'https://menuoaxaca.com/15letras', n: 'Trilogía de Moles', p: 310, img: 'https://images.unsplash.com/photo-1624300603538-1207400f4116?w=700' },
     { id: 49, cat: '🌮 Antojos', res: 'Tacos de Cazuela "La Güera"', url: 'https://menuoaxaca.com/laguera', n: 'Taco de Chicharrón en Salsa Verde', p: 35, img: 'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=700' },
-    { id: 50, cat: '🍮 Postres', res: 'Muss Café', url: 'https://menuoaxaca.com/muss', n: 'Affogato con Mezcal y Vainilla', p: 110, img: 'https://images.unsplash.com/photo-1594910413527-567ce480139d?w=700' }
+    { id: 50, cat: '🍮 Postres', res: 'Muss Café', url: 'https://menuoaxaca.com/muss', n: 'Affogato con Mezcal y Vainilla', p: 110, img: 'https://images.unsplash.com/photo-1594910413527-567ce480139d?w=700' },
+
+    // 51-60: Joyas de Barrio
+    { id: 51, cat: '🥘 Tradicional', res: 'La Redención', url: 'https://menuoaxaca.com/redencion', n: 'Conejo en Adobo de Chile Pasilla', p: 245, img: 'https://images.unsplash.com/photo-1544124499-58912cbddaad?w=700' },
+    { id: 52, cat: '🌮 Antojos', res: 'Cenaduría Santa Lucía', url: 'https://menuoaxaca.com/santalucia', n: 'Patas de Cerdo en Vinagre', p: 85, img: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=700' },
+    { id: 53, cat: '🥘 Tradicional', res: 'El Típico', url: 'https://menuoaxaca.com/tipico', n: 'Caldo de Res con Verduras', p: 135, img: 'https://images.unsplash.com/photo-1547592102-913600557356?w=700' },
+    { id: 54, cat: '🍹 Bebidas', res: 'La Cosecha', url: 'https://menuoaxaca.com/cosecha', n: 'Agua de Zapote Negro', p: 40, img: 'https://images.unsplash.com/photo-1544145945-f904253d0c7b?w=700' },
+    { id: 55, cat: '🍴 Gourmet', res: 'Crudo', url: 'https://menuoaxaca.com/crudo', n: 'Omakase Oaxaqueño (Cena)', p: 950, img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700' },
+    { id: 56, cat: '🌮 Antojos', res: 'Tacos "El Primo"', url: 'https://menuoaxaca.com/elprimo', n: 'Taco de Lengua a la Plancha', p: 45, img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700' },
+    { id: 57, cat: '🥘 Tradicional', res: 'Restaurante El Escapulario', url: 'https://menuoaxaca.com/escapulario', n: 'Mole de Caderas (Temporada)', p: 580, img: 'https://images.unsplash.com/photo-1534352956274-42bc75ca9692?w=700' },
+    { id: 58, cat: '🥞 Desayunos', res: 'Pan:Am', url: 'https://menuoaxaca.com/panam', n: 'Chilaquiles en Salsa de Chile Seco', p: 165, img: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=700' },
+    { id: 59, cat: '🌮 Antojos', res: 'Mercado de San Pascua', url: 'https://menuoaxaca.com/sanchezpascuas', n: 'Piedrazo (Pan con Vinagre)', p: 35, img: 'https://images.unsplash.com/photo-1619603364837-5438861e6821?w=700' },
+    { id: 60, cat: '🍹 Bebidas', res: 'In Situ', url: 'https://menuoaxaca.com/insitu', n: 'Mezcal de Pechuga (Copa)', p: 180, img: 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=700' },
+
+    // 61-70: Nuevos Conceptos
+    { id: 61, cat: '🍴 Gourmet', res: 'Teocintle', url: 'https://menuoaxaca.com/teocintle', n: 'Menú Degustación 5 Tiempos', p: 750, img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700' },
+    { id: 62, cat: '🦐 Mariscos', res: 'La Red', url: 'https://menuoaxaca.com/lared', n: 'Caldo de Camarón Gigante', p: 210, img: 'https://images.unsplash.com/photo-1555350193-c5897af32411?w=700' },
+    { id: 63, cat: '🌮 Antojos', res: 'Tacos de la Vía', url: 'https://menuoaxaca.com/tacosvia', n: 'Taco de Chile de Agua Relleno', p: 48, img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700' },
+    { id: 64, cat: '🥘 Tradicional', res: 'Los Danzantes', url: 'https://menuoaxaca.com/danzantes', n: 'Hoja Santa con Quesillo', p: 145, img: 'https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=700' },
+    { id: 65, cat: '🍮 Postres', res: 'Nieves El Tule', url: 'https://menuoaxaca.com/eltule', n: 'Nieve de Leche Quemada (Litro)', p: 180, img: 'https://images.unsplash.com/photo-1505394033343-e94c297a8a35?w=700' },
+    { id: 66, cat: '🥞 Desayunos', res: 'Comedor Mary', url: 'https://menuoaxaca.com/mary', n: 'Entomatadas con Cecina', p: 110, img: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=700' },
+    { id: 67, cat: '🍹 Bebidas', res: 'Terraza Los Amantes', url: 'https://menuoaxaca.com/amantes', n: 'Margarita de Tuna Roja', p: 165, img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700' },
+    { id: 68, cat: '🌮 Antojos', res: 'Quesadillas "La China"', url: 'https://menuoaxaca.com/lachina', n: 'Garnacha de Salina Cruz', p: 22, img: 'https://images.unsplash.com/photo-1593560704563-f176a2eb61db?w=700' },
+    { id: 69, cat: '🥘 Tradicional', res: 'La Olla', url: 'https://menuoaxaca.com/laolla', n: 'Sopa de Tortilla Oaxaqueña', p: 125, img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=700' },
+    { id: 70, cat: '🍴 Gourmet', res: 'Tierra del Sol', url: 'https://menuoaxaca.com/tierradelsol', n: 'Tetela de Venado', p: 285, img: 'https://images.unsplash.com/photo-1619603364837-5438861e6821?w=700' },
+
+    // 71-80: Secretos de Zaachila y Etla
+    { id: 71, cat: '🥘 Tradicional', res: 'Mercado de Zaachila', url: 'https://menuoaxaca.com/zaachila', n: 'Barbacoa de Rollo', p: 240, img: 'https://images.unsplash.com/photo-1555350193-c5897af32411?w=700' },
+    { id: 72, cat: '🌮 Antojos', res: 'Memelas "La Güerita"', url: 'https://menuoaxaca.com/guerita', n: 'Memela con Chicharrón', p: 45, img: 'https://images.unsplash.com/photo-1628102420455-89b37c688849?w=700' },
+    { id: 73, cat: '🥘 Tradicional', res: 'El Milenario', url: 'https://menuoaxaca.com/milenario', n: 'Higaditos de Boda', p: 160, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=700' },
+    { id: 74, cat: '🍹 Bebidas', res: 'Convivio', url: 'https://menuoaxaca.com/convivio', n: 'Negroni con Mezcal y Sal de Gusano', p: 175, img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700' },
+    { id: 75, cat: '🍴 Gourmet', res: 'Cobarde', url: 'https://menuoaxaca.com/cobarde', n: 'Taco de Pato al Pastor', p: 210, img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700' },
+    { id: 76, cat: '🥘 Tradicional', res: 'Mercado de Etla', url: 'https://menuoaxaca.com/etla', n: 'Quesillo Fresco (Kilo)', p: 190, img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=700' },
+    { id: 77, cat: '🥞 Desayunos', res: 'Arugula', url: 'https://menuoaxaca.com/arugula', n: 'Enmoladas de Coloradito', p: 155, img: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=700' },
+    { id: 78, cat: '🍮 Postres', res: 'Boulenc', url: 'https://menuoaxaca.com/boulenc', n: 'Roll de Canela y Cardamomo', p: 65, img: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=700' },
+    { id: 79, cat: '🌮 Antojos', res: 'Tacos de Juanito', url: 'https://menuoaxaca.com/juanito', n: 'Taco de Cabeza al Vapor', p: 22, img: 'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=700' },
+    { id: 80, cat: '🥘 Tradicional', res: 'Restaurante Catedral', url: 'https://menuoaxaca.com/catedral', n: 'Mole Negro Tradicional', p: 345, img: 'https://images.unsplash.com/photo-1613514785940-daed07799d9b?w=700' },
+
+    // 81-90: La Ruta Pro
+    { id: 81, cat: '🍴 Gourmet', res: 'Sin Nombre', url: 'https://menuoaxaca.com/sinnombre', n: 'Coliflor Rostizada al Miso', p: 230, img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700' },
+    { id: 82, cat: '🥘 Tradicional', res: 'Mariscos El Patas', url: 'https://menuoaxaca.com/elpatas', n: 'Aguachile de Cecina', p: 195, img: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=700' },
+    { id: 83, cat: '🌮 Antojos', res: 'El Lechoncito de Oro', url: 'https://menuoaxaca.com/lechoncito', n: 'Taco de Chicharrón con Salsa', p: 35, img: 'https://images.unsplash.com/photo-1613514785292-1407f07b9752?w=700' },
+    { id: 84, cat: '🍹 Bebidas', res: 'Selva Oaxaca', url: 'https://menuoaxaca.com/selva', n: 'Coctel Selva (Botanicals)', p: 220, img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700' },
+    { id: 85, cat: '🥞 Desayunos', res: 'Chepiche Café', url: 'https://menuoaxaca.com/chepiche', n: 'Omelette de Flores Silvestres', p: 175, img: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=700' },
+    { id: 86, cat: '🥘 Tradicional', res: 'Mercado de la Merced', url: 'https://menuoaxaca.com/merced', n: 'Consomé de Chivo', p: 120, img: 'https://images.unsplash.com/photo-1547592102-913600557356?w=700' },
+    { id: 87, cat: '🌮 Antojos', res: 'Tacos Al Pastor "El Compa"', url: 'https://menuoaxaca.com/elcompa', n: 'Gringa de Pastor Oaxaqueño', p: 85, img: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=700' },
+    { id: 88, cat: '🥘 Tradicional', res: 'Restaurante Coronita', url: 'https://menuoaxaca.com/coronita', n: 'Estofado de Almendras', p: 265, img: 'https://images.unsplash.com/photo-1544124499-58912cbddaad?w=700' },
+    { id: 89, cat: '🍮 Postres', res: 'Chocolatería Texier', url: 'https://menuoaxaca.com/texier', n: 'Trufa de Mezcal Añejo', p: 45, img: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=700' },
+    { id: 90, cat: '🥘 Tradicional', res: 'Gozobi', url: 'https://menuoaxaca.com/gozobi', n: 'Tlayuda de Camarones', p: 245, img: 'https://images.unsplash.com/photo-1624300629298-e9de39c13be5?w=700' },
+
+    // 91-100: El Gran Cierre
+    { id: 91, cat: '🍹 Bebidas', res: 'Mezcalite', url: 'https://menuoaxaca.com/mezcalite', n: 'Granizado de Mezcal con Mango', p: 95, img: 'https://images.unsplash.com/photo-1556881286-fc6915169721?w=700' },
+    { id: 92, cat: '🌮 Antojos', res: 'Mercado de Abastos', url: 'https://menuoaxaca.com/abastos', n: 'Taco de Moronga', p: 28, img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700' },
+    { id: 93, cat: '🥘 Tradicional', res: 'Cabuche', url: 'https://menuoaxaca.com/cabuche', n: 'Pozole Seco Oaxaqueño', p: 155, img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=700' },
+    { id: 94, cat: '🥞 Desayunos', res: 'Masea Trigo y Maíz', url: 'https://menuoaxaca.com/masea', n: 'Concha de Chocolate con Nata', p: 55, img: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=700' },
+    { id: 95, cat: '🍴 Gourmet', res: 'Expendio Tradición', url: 'https://menuoaxaca.com/tradicion', n: 'Aguachile de Tasajo', p: 195, img: 'https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=700' },
+    { id: 96, cat: '🌮 Antojos', res: 'Tacos El Primo', url: 'https://menuoaxaca.com/elprimo', n: 'Taco de Suadero con Pápalo', p: 25, img: 'https://images.unsplash.com/photo-1613514785292-1407f07b9752?w=700' },
+    { id: 97, cat: '🥘 Tradicional', res: 'La Choza', url: 'https://menuoaxaca.com/choza', n: 'Conejo en Amarillo', p: 230, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=700' },
+    { id: 98, cat: '🍹 Bebidas', res: 'Mezcalería Archivo', url: 'https://menuoaxaca.com/archivo', n: 'Mezcal de Tepeztate', p: 190, img: 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=700' },
+    { id: 99, cat: '🥘 Tradicional', res: 'Restaurante Tani Vao', url: 'https://menuoaxaca.com/tanivao', n: 'Enmoladas de Mole Negro', p: 140, img: 'https://images.unsplash.com/photo-1624300603538-1207400f4116?w=700' },
+    { id: 100, cat: '🍮 Postres', res: 'Barrio Gourmet', url: 'https://menuoaxaca.com/barriogourmet', n: 'Cheesecake de Guayaba y Mezcal', p: 120, img: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=700' }
 ];
 
     let cart = JSON.parse(localStorage.getItem('oax_v11_pro')) || [];
