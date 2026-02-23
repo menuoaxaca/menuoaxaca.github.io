@@ -40,23 +40,47 @@
     box-shadow: 0 0 15px var(--oax-pink); /* Brillo neón */
     transform: scale(1.05);     /* Crece un poquito */
 }
-        :root {
-            --oax-pink: #ff0080; 
-            --bg: #000000;       
-            --card: #0a0a0a;
-            --border: rgba(255, 0, 128, 0.2);
-            --blur: blur(25px);
-        }
-        
+       /* Esto asegura que el nombre del producto cambie de blanco a negro */
+.card-body div {
+    color: var(--text); 
+    transition: color 0.3s ease;
+}
+
+/* Y definimos el color blanco por defecto para el Modo Noche */
+:root {
+    --oax-pink: #ff0080; 
+    --bg: #000000;       
+    --card: #0a0a0a;
+    --text: #ffffff; /* <--- AÑADE ESTA LÍNEA AQUÍ */
+    --border: rgba(255, 0, 128, 0.2);
+    --blur: blur(25px);
+}
+
+      card-body, .card-body div {
+    color: var(--text) !important; 
+    transition: color 0.3s ease;
+}
 
 
 body.day-mode {
-    /* MODO DÍA */
     --bg: #f5f5f7;
     --card: #ffffff;
     --text: #000000;
     --border: rgba(255, 0, 128, 0.1);
     --nav-bg: rgba(255,255,255,0.9);
+}
+
+/* Ajuste automático para machetes en modo día */
+body.day-mode .machete {
+    background: #ffffff;
+    color: var(--oax-pink);
+    border: 1px solid var(--border);
+}
+
+/* Ajuste para el panel del carrito */
+body.day-mode #cart-panel {
+    background: #ffffff;
+    color: #000000;
 }
 
 /* El botón circular */
@@ -94,11 +118,21 @@ body.day-mode {
         }
 
         /* --- HEADER & NAV --- */
-        header { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(0,0,0,0.9); backdrop-filter: var(--blur); display: flex; justify-content: space-between; align-items: center; padding: 0 6%; z-index: 10000; border-bottom: 1px solid var(--border); }
+        header { position: fixed; top: 0; width: 100%; height: 80px; 
+    background: var(--nav-bg, rgba(0,0,0,0.9)); /* <--- USA LA VARIABLE */
+    backdrop-filter: var(--blur); 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 0 6%; z-index: 10000; 
+    border-bottom: 1px solid var(--border); }
         .cart-trigger { background: var(--oax-pink); color: #000; padding: 12px 20px; border-radius: 40px; font-weight: 900; font-size: 0.7rem; cursor: pointer; transition: 0.3s; border: none; display: flex; align-items: center; gap: 8px; }
         .cart-trigger:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--oax-pink); }
 
-        .cat-nav { position: fixed; top: 80px; width: 100%; height: 70px; background: rgba(0,0,0,0.95); z-index: 9999; border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+        .cat-nav { 
+    position: fixed; top: 80px; width: 100%; height: 70px; 
+    background: var(--nav-bg, rgba(0,0,0,0.95)); /* <--- USA LA VARIABLE */
+    z-index: 9999; border-bottom: 1px solid var(--border); 
+    display: flex; align-items: center; 
+}
         .cat-scroll { display: flex; overflow-x: auto; padding: 0 6%; gap: 15px; width: 100%; scrollbar-width: none; }
         .cat-pill { flex: 0 0 auto; padding: 10px 22px; border-radius: 50px; background: transparent; border: 1px solid var(--border); color: #666; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
         .cat-pill.active { background: var(--oax-pink); color: #000; border-color: var(--oax-pink); }
@@ -145,7 +179,7 @@ body.day-mode {
     <div class="logo" onclick="location.reload()">MENUOAXACA</div>
      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
     🌙 </button>
-    <button class="cart-trigger" onclick="toggleCart()">🛒 <span id="cart-total-header">$0.00</span> | $<span id="c-total">0</span></button>
+    <button class="cart-trigger" onclick="toggleCart()">🛒 <span id="c-count">0</span> | $<span id="c-total">0</span></button>
 </header>
 
 <div id="notification-container"></div>
@@ -394,64 +428,64 @@ window.onload = () => {
 
   const db = [
     // 1-10: Los Clásicos de Oro
-    { id: 1, cat: '🥘 Tradicional', res: 'El Negro', url: 'https://menuoaxaca.com/elnegro', n: 'Tlayuda con Tasajo', p: 185, img: 'https://images.unsplash.com/photo-1624300629298-e9de39c13be5?w=700' },
-    { id: 2, cat: '🍴 Gourmet', res: 'Alfonsina', url: 'https://menuoaxaca.com/alfonsina', n: 'Mole Blanco', p: 295, img: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=700' },
-    { id: 3, cat: '🌮 Antojos', res: 'Doña Vale', url: 'https://menuoaxaca.com/donavale', n: 'Memela Morita', p: 120, img: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=700' },
-    { id: 4, cat: '🥃 Mezcal', res: 'Sabina Sabe', url: 'https://menuoaxaca.com/sabinasabe', n: 'Mezcal de la Casa', p: 450, img: 'https://images.unsplash.com/photo-1516997121675-4c2d04fe1301?w=700' },
-    { id: 5, cat: '🥘 Tradicional', res: 'La Coronita', url: 'https://menuoaxaca.com/lacoronita', n: '7 Moles Oaxaqueños', p: 380, img: 'https://images.unsplash.com/photo-1624300603538-1207400f4116?w=700' },
-    { id: 6, cat: '🌮 Antojos', res: 'Mercado de Abastos', url: 'https://menuoaxaca.com/abastos', n: 'Empanada de Amarillo', p: 65, img: 'https://images.unsplash.com/photo-1593560704563-f176a2eb61db?w=700' },
-    { id: 7, cat: '🥘 Tradicional', res: 'Las Quince Letras', url: 'https://menuoaxaca.com/15letras', n: 'Chiles en Nogada Oaxaqueño', p: 240, img: 'https://images.unsplash.com/photo-1632778149975-420e0e75ee08?w=700' },
-    { id: 8, cat: '🍴 Gourmet', res: 'Casa Oaxaca', url: 'https://menuoaxaca.com/casaoaxaca', n: 'Lechón en Mole Manchamanteles', p: 420, img: 'https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=700' },
-    { id: 9, cat: '☕ Bebidas', res: 'Tejate Huayapam', url: 'https://menuoaxaca.com/tejate', n: 'Tejate Tradicional (Litro)', p: 85, img: 'https://images.unsplash.com/photo-1544333323-53770e9987cb?w=700' },
-    { id: 10, cat: '🌮 Antojos', res: 'Tacos del Carmen', url: 'https://menuoaxaca.com/delcarmen', n: 'Taco de Chile Relleno', p: 45, img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700' },
+    { id: 1, cat: '🥘 Tradicional', res: 'El Negro', url: 'https://menuoaxaca.com/elnegro', n: 'Tlayuda con Tasajo', p: 185, img: 'https://s3-media0.fl.yelpcdn.com/bphoto/eU86YqhX-TEk-ZXniWqs_A/348s.jpg' },
+    { id: 2, cat: '🍴 Gourmet', res: 'Alfonsina', url: 'https://menuoaxaca.com/alfonsina', n: 'Mole Blanco', p: 295, img: 'https://imagenes.excelsior.com.mx/files/main_image_375_249/uploads/2025/08/19/692099f982653.jpeg' },
+    { id: 3, cat: '🌮 Antojos', res: 'Doña Vale', url: 'https://menuoaxaca.com/donavale', n: 'Memela Morita', p: 120, img: 'https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_800,h_600/https://traveltooaxaca.com/wp-content/uploads/2023/02/memelas-oaxaca-mexico.jpg' },
+    { id: 4, cat: '🥃 Mezcal', res: 'Sabina Sabe', url: 'https://menuoaxaca.com/sabinasabe', n: 'Mezcal de la Casa', p: 450, img: 'https://glass-glass.com.mx/wp-content/uploads/2023/08/GCVACA011-2.jpg' },
+    { id: 5, cat: '🥘 Tradicional', res: 'La Coronita', url: 'https://menuoaxaca.com/lacoronita', n: '7 Moles Oaxaqueños', p: 380, img: 'https://lirp.cdn-website.com/6402eb3e/dms3rep/multi/opt/Moles-1920w.jpg' },
+    { id: 6, cat: '🌮 Antojos', res: 'Mercado de Abastos', url: 'https://menuoaxaca.com/abastos', n: 'Empanada de Amarillo', p: 65, img: 'https://i.pinimg.com/474x/88/8a/c7/888ac77aa77c248261518fc7bd37a226.jpg' },
+    { id: 7, cat: '🥘 Tradicional', res: 'Las Quince Letras', url: 'https://menuoaxaca.com/15letras', n: 'Chiles en Nogada Oaxaqueño', p: 240, img: 'https://oaxaca.quadratin.com.mx/www/wp-content/uploads/2020/09/chiles1-1024x576.jpg' },
+    { id: 8, cat: '🍴 Gourmet', res: 'Casa Oaxaca', url: 'https://menuoaxaca.com/casaoaxaca', n: 'Lechón en Mole Manchamanteles', p: 420, img: 'https://www.cocinarygozar.com/wp-content/uploads/2015/11/mancha-manteles-cocinar-y-gozar-1.jpg' },
+    { id: 9, cat: '☕ Bebidas', res: 'Tejate Huayapam', url: 'https://menuoaxaca.com/tejate', n: 'Tejate Tradicional (Litro)', p: 85, img: 'https://wp.rutopia.com/wp-content/uploads/2022/04/tejate.jpg' },
+    { id: 10, cat: '🌮 Antojos', res: 'Tacos del Carmen', url: 'https://menuoaxaca.com/delcarmen', n: 'Taco de Chile Relleno', p: 45, img: 'https://www.dondeir.com/wp-content/uploads/2024/07/taco-de-chile-relleno.jpg' },
 
     // 11-20: Tendencias y Barrios
-    { id: 11, cat: '🥘 Tradicional', res: 'Pasillo de Humo', url: 'https://menuoaxaca.com/pasillohumo', n: 'Parrillada de Carnes', p: 550, img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700' },
-    { id: 12, cat: '🍮 Postres', res: 'Nieves La Soledad', url: 'https://menuoaxaca.com/lasoledad', n: 'Nieve de Leche Quemada con Tuna', p: 55, img: 'https://images.unsplash.com/photo-1505394033343-e94c297a8a35?w=700' },
-    { id: 13, cat: '🥘 Tradicional', res: 'Itanoní', url: 'https://menuoaxaca.com/itanoni', n: 'Tetela de Frijol con Quesillo', p: 95, img: 'https://images.unsplash.com/photo-1619603364837-5438861e6821?w=700' },
-    { id: 14, cat: '🌮 Antojos', res: 'Tacos del Llano', url: 'https://menuoaxaca.com/tacosllano', n: 'Tacos de Tasajo al Pastor', p: 110, img: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=700' },
-    { id: 15, cat: '🥘 Tradicional', res: 'Ancestral Cocina', url: 'https://menuoaxaca.com/ancestral', n: 'Guajolote en Mole Negro', p: 320, img: 'https://images.unsplash.com/photo-1613514785940-daed07799d9b?w=700' },
-    { id: 16, cat: '🌮 Antojos', res: 'Cenaduría El Barrio', url: 'https://menuoaxaca.com/elbarrio', n: 'Pozole Mixteco', p: 145, img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=700' },
-    { id: 17, cat: '🥘 Tradicional', res: 'Levadura de Olla', url: 'https://menuoaxaca.com/levadura', n: 'Tamal de Tichinda', p: 130, img: 'https://images.unsplash.com/photo-1581067133036-69f338870104?w=700' },
-    { id: 18, cat: '🍹 Bebidas', res: 'Agua de Casilda', url: 'https://menuoaxaca.com/casilda', n: 'Agua de Chilacayote', p: 45, img: 'https://images.unsplash.com/photo-1544145945-f904253d0c7b?w=700' },
-    { id: 19, cat: '🍴 Gourmet', res: 'Origen', url: 'https://menuoaxaca.com/origen', n: 'Risotto de Hongos de la Sierra', p: 385, img: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700' },
-    { id: 20, cat: '🌮 Antojos', res: 'Mercado de la Merced', url: 'https://menuoaxaca.com/merced', n: 'Enchiladas de Coloradito', p: 95, img: 'https://images.unsplash.com/photo-1534352956274-42bc75ca9692?w=700' },
+    { id: 11, cat: '🥘 Tradicional', res: 'Pasillo de Humo', url: 'https://menuoaxaca.com/pasillohumo', n: 'Parrillada de Carnes', p: 550, img: 'https://lh5.googleusercontent.com/proxy/FczpOPw3fg45Xm27OEvQODRIHABiRxjIhojqPgIXKey5eAjKJEKQ2vGJxu3OeyyEixzCHW64nBbhxRwh1hZv4am7CAX56dhbdf4WJO-4yNo-JwvYGleZvn7_wZTiwhtjpzUmgErlkLaVyOJ8IAy_EBc3U8cmq5A1' },
+    { id: 12, cat: '🍮 Postres', res: 'Nieves La Soledad', url: 'https://menuoaxaca.com/lasoledad', n: 'Nieve de Leche Quemada con Tuna', p: 75, img: 'https://lechecontuna.com/wp-content/uploads/2018/05/lrche-con-tuna.jpg' },
+    { id: 13, cat: '🥘 Tradicional', res: 'Itanoní', url: 'https://menuoaxaca.com/itanoni', n: 'Tetela de Frijol con Quesillo', p: 95, img: 'https://www.mexicoenmicocina.com/wp-content/uploads/2022/08/Tetelas-Oaxaquen%CC%83as-receta-1A-500x500.jpg' },
+    { id: 14, cat: '🌮 Antojos', res: 'Tacos del Llano', url: 'https://menuoaxaca.com/tacosllano', n: 'Tacos de Tasajo al pastor', p: 110, img: 'https://comedera.com/wp-content/uploads/sites/9/2017/08/tacos-al-pastor-receta.jpg' },
+    { id: 15, cat: '🥘 Tradicional', res: 'Ancestral Cocina', url: 'https://menuoaxaca.com/ancestral', n: 'Guajolote en Mole Negro', p: 320, img: 'https://pbs.twimg.com/media/Ec0eEamUcAUFptw.jpg' },
+    { id: 16, cat: '🌮 Antojos', res: 'Cenaduría El Barrio', url: 'https://menuoaxaca.com/elbarrio', n: 'Pozole Mixteco', p: 145, img: 'https://lechecontuna.com/wp-content/uploads/2021/03/POZOLE2-scaled.jpg' },
+    { id: 17, cat: '🥘 Tradicional', res: 'Levadura de Olla', url: 'https://menuoaxaca.com/levadura', n: 'Tamal de Tichinda', p: 130, img: 'https://oaxaca.heraldodemexico.com.mx/u/fotografias/m/2025/1/11/f1280x720-45551_177226_5050.jpg' },
+    { id: 18, cat: '🍹 Bebidas', res: 'Agua de Casilda', url: 'https://menuoaxaca.com/casilda', n: 'Agua de Chilacayote', p: 45, img: 'https://www.mexicodesconocido.com.mx/wp-content/uploads/2019/01/agua-chilcayota.jpg' },
+    { id: 19, cat: '🍴 Gourmet', res: 'Origen', url: 'https://menuoaxaca.com/origen', n: 'Risotto de Hongos de la Sierra', p: 385, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmDNwaD284r__t4mM0S4piaFb9TZowbIFBmA&s' },
+    { id: 20, cat: '🌮 Antojos', res: 'Mercado de la Merced', url: 'https://menuoaxaca.com/merced', n: 'Enchiladas de Coloradito', p: 95, img: 'https://preview.redd.it/a-particularly-good-enchilada-in-coloradito-v0-tep5zip28ymc1.jpeg?auto=webp&s=2640043077bbf7816f72426e4853ef66f68886f7' },
 
     // 21-30: Sabores de los Valles
-    { id: 21, cat: '🥘 Tradicional', res: 'Tani-Vao', url: 'https://menuoaxaca.com/tanivao', n: 'Pechuga de Pollo en Estofado', p: 190, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=700' },
-    { id: 22, cat: '🥃 Mezcal', res: 'La Mezcaloteca', url: 'https://menuoaxaca.com/mezcaloteca', n: 'Cata de 3 Mezcales Silvestres', p: 650, img: 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=700' },
-    { id: 23, cat: '🌮 Antojos', res: 'Tacos del Roy', url: 'https://menuoaxaca.com/tacosdelroy', n: 'Taco de Chicharrón Prensado', p: 38, img: 'https://images.unsplash.com/photo-1613514785292-1407f07b9752?w=700' },
-    { id: 24, cat: '🍮 Postres', res: 'Panadería San Agustín', url: 'https://menuoaxaca.com/sanagustin', n: 'Chocolate Caliente y Pan de Yema', p: 115, img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=700' },
-    { id: 25, cat: '🥘 Tradicional', res: 'Restaurante Coronita', url: 'https://menuoaxaca.com/coronita', n: 'Platón de Carnes Oaxaqueñas', p: 480, img: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=700' },
-    { id: 26, cat: '🌮 Antojos', res: 'Memelas de San Agustín', url: 'https://menuoaxaca.com/sanagustin', n: 'Memela con Asiento y Quesillo', p: 35, img: 'https://images.unsplash.com/photo-1628102420455-89b37c688849?w=700' },
-    { id: 27, cat: '🍴 Gourmet', res: 'Pitiona', url: 'https://menuoaxaca.com/pitiona', n: 'Sopa de Guías con Chochochones', p: 210, img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=700' },
-    { id: 28, cat: '🦐 Mariscos', res: 'Pez Muy Oaxaqueño', url: 'https://menuoaxaca.com/pez', n: 'Tostada de Pulpo al Ajillo', p: 165, img: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=700' },
-    { id: 29, cat: '🌮 Antojos', res: 'Tacos de Lechón El Güero', url: 'https://menuoaxaca.com/elguero', n: 'Orden de Tacos de Lechón', p: 90, img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700' },
-    { id: 30, cat: '🥘 Tradicional', res: 'La Biznaga', url: 'https://menuoaxaca.com/biznaga', n: 'Enchiladas de Mole de Olla', p: 195, img: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=700' },
+    { id: 21, cat: '🥘 Tradicional', res: 'Tani-Vao', url: 'https://menuoaxaca.com/tanivao', n: 'Pechuga de Pollo en Estofado', p: 190, img: 'https://www.paulinacocina.net/wp-content/uploads/2020/10/estofado-de-pollo-con-papas.jpg' },
+    { id: 22, cat: '🥃 Mezcal', res: 'La Mezcaloteca', url: 'https://menuoaxaca.com/mezcaloteca', n: 'Cata de 3 Mezcales Silvestres (Reservacion)', p: 650, img: 'https://mezcaloteca.com/cdn/shop/files/FOTO_DE_DIRECCION_INICIO_300x.png?v=1684601822' },
+    { id: 23, cat: '🌮 Antojos', res: 'Tacos del Roy', url: 'https://menuoaxaca.com/tacosdelroy', n: 'Taco de Chicharrón Prensado', p: 38, img: 'https://mictlanantojitosveganos.com/wp-content/uploads/2024/07/IMG_3816-scaled.jpeg' },
+    { id: 24, cat: '🍮 Postres', res: 'Panadería San Agustín', url: 'https://menuoaxaca.com/sanagustin', n: 'Chocolate Caliente y Pan de Yema', p: 115, img: 'https://i.pinimg.com/564x/4e/75/c6/4e75c668161199e10ef22ebe1a56991e.jpg' },
+    { id: 25, cat: '🥘 Tradicional', res: 'Restaurante Coronita', url: 'https://menuoaxaca.com/coronita', n: 'Platón de Carnes Oaxaqueñas', p: 480, img: 'https://i.pinimg.com/736x/bb/fe/9b/bbfe9bf49dd7692060c22c51f52f3402.jpg' },
+    { id: 26, cat: '🌮 Antojos', res: 'Memelas de San Agustín', url: 'https://menuoaxaca.com/sanagustin', n: 'Memela con Asiento y Quesillo', p: 35, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfldM_jwDJ83ifXqCVh6sIHEnrxjvx7u0waw&s' },
+    { id: 27, cat: '🍴 Gourmet', res: 'Pitiona', url: 'https://menuoaxaca.com/pitiona', n: 'Sopa de Guías con Chochoyotes', p: 210, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Rjgr-Vz9DdXqqzKxmL50WcIIVG0p1Uj7hQ&s' },
+    { id: 28, cat: '🦐 Mariscos', res: 'Pez Muy Oaxaqueño', url: 'https://menuoaxaca.com/pez', n: 'Tostada de Pulpo al Ajillo', p: 165, img: 'https://www.gob.mx/cms/uploads/article/main_image/106670/ajillopulpo.jpg' },
+    { id: 29, cat: '🌮 Antojos', res: 'Tacos de Lechón El Güero', url: 'https://menuoaxaca.com/elguero', n: 'Orden de Tacos de Lechón', p: 90, img: 'https://www.gastrolabweb.com/u/fotografias/m/2021/11/17/f850x638-21677_99166_5050.jpg' },
+    { id: 30, cat: '🥘 Tradicional', res: 'La Biznaga', url: 'https://menuoaxaca.com/biznaga', n: 'Enchiladas de Mole de Olla', p: 195, img: 'https://www.turimexico.com/wp-content/uploads/2016/09/Receta-Enchiladas-de-Mole-Oaxaque%C3%B1o-900x500.jpg' },
 
     // 31-40: Joyas Escondidas
-    { id: 31, cat: '🍹 Bebidas', res: 'Café de Chiripa', url: 'https://menuoaxaca.com/chiripa', n: 'Cold Brew con Mezcal', p: 125, img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700' },
-    { id: 32, cat: '🌮 Antojos', res: 'Tamales de la Soledad', url: 'https://menuoaxaca.com/tamalessoledad', n: 'Tamal de Chepil con Salsa', p: 25, img: 'https://images.unsplash.com/photo-1581067133036-69f338870104?w=700' },
-    { id: 33, cat: '🍮 Postres', res: 'Nieves El Tule', url: 'https://menuoaxaca.com/eltule', n: 'Nieve de Mezcal con Sal de Gusano', p: 60, img: 'https://images.unsplash.com/photo-1557142046-c704a3adf364?w=700' },
-    { id: 34, cat: '🥘 Tradicional', res: 'Las Rosas', url: 'https://menuoaxaca.com/lasrosas', n: 'Caldo de Gato (Tradicional)', p: 155, img: 'https://images.unsplash.com/photo-1547592102-913600557356?w=700' },
-    { id: 35, cat: '🥘 Tradicional', res: 'Mercado Sánchez Pascuas', url: 'https://menuoaxaca.com/sanchezpascuas', n: 'Tamal de Dulce con Pasitas', p: 25, img: 'https://images.unsplash.com/photo-1581067133036-69f338870104?w=700' },
-    { id: 36, cat: '🌮 Antojos', res: 'Tacos de la Vía', url: 'https://menuoaxaca.com/tacosvia', n: 'Taco de Chiles Rellenos Capeados', p: 40, img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700' },
+    { id: 31, cat: '🍹 Bebidas', res: 'Café de Chiripa', url: 'https://menuoaxaca.com/chiripa', n: 'Cold Brew con Mezcal', p: 125, img: 'https://cdn-3.expansion.mx/dims4/default/9e56605/2147483647/resize/1280x/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2F64%2Fbc%2F777671174261a8333494bc932c5e%2Fcold-brew.jpg' },
+    { id: 32, cat: '🌮 Antojos', res: 'Tamales de la Soledad', url: 'https://menuoaxaca.com/tamalessoledad', n: 'Tamal de Chepil con Salsa', p: 25, img: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhT1iQ0-cnaWrkKo8dUy89M9sz_FDMjePxaqIwm2ADk4yvgXZ3NBeD8ecf1pX-_w867yXdlHs7ICOXewyoscNQRAsttKyq2LT9J_ANrUEQTFJ8NrHkq7n0YH42voWfWvQbILIjJ6NzFSws/s1600/received_212149383444638.jpeg' },
+    { id: 33, cat: '🍮 Postres', res: 'Nieves El Tule', url: 'https://menuoaxaca.com/eltule', n: 'Nieve de Mezcal con Sal de Gusano', p: 60, img: 'https://cdn7.kiwilimon.com/recetaimagen/37970/1200x600/48332.jpg.webp' },
+    { id: 34, cat: '🥘 Tradicional', res: 'Las Rosas', url: 'https://menuoaxaca.com/lasrosas', n: 'Caldo de Gato (Tradicional)', p: 155, img: 'https://cocina-casera.com/mx/wp-content/uploads/2018/04/caldo-de-gato.jpg' },
+    { id: 35, cat: '🥘 Tradicional', res: 'Mercado Sánchez Pascuas', url: 'https://menuoaxaca.com/sanchezpascuas', n: 'Tamal de Dulce con Pasitas', p: 25, img: 'https://i.pinimg.com/474x/0c/ec/e9/0cece9261637b6e76175bf3232f99c14.jpg' },
+    { id: 36, cat: '🌮 Antojos', res: 'Tacos de la Vía', url: 'https://menuoaxaca.com/tacosvia', n: 'Taco de Chiles Rellenos Capeados', p: 40, img: 'https://www.huevosanjuan.com.mx/uploads/images/receta-taco-de-chile-relleno-al-pastor-334.png' },
     { id: 37, cat: '🥘 Tradicional', res: 'El Destilado', url: 'https://menuoaxaca.com/eldestilado', n: 'Menú de Pasos (Degustación)', p: 1250, img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700' },
-    { id: 38, cat: '☕ Bebidas', res: 'Chocolate Mayordomo', url: 'https://menuoaxaca.com/mayordomo', n: 'Frappé de Chocolate Amargo', p: 75, img: 'https://images.unsplash.com/photo-1544787210-22bbd3013844?w=700' },
-    { id: 39, cat: '🌮 Antojos', res: 'Quesadillas de la Reforma', url: 'https://menuoaxaca.com/reforma', n: 'Quesadilla de Flor de Calabaza', p: 45, img: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=700' },
-    { id: 40, cat: '🥘 Tradicional', res: 'Restaurante Tlamanalli', url: 'https://menuoaxaca.com/tlamanalli', n: 'Sopa de Calabaza y Elote', p: 180, img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=700' },
+    { id: 38, cat: '☕ Bebidas', res: 'Chocolate Mayordomo', url: 'https://menuoaxaca.com/mayordomo', n: 'Frappé de Chocolate Amargo', p: 75, img: 'https://pbs.twimg.com/media/DC-wwdSV0AABRaF.jpg' },
+    { id: 39, cat: '🌮 Antojos', res: 'Quesadillas de la Reforma', url: 'https://menuoaxaca.com/reforma', n: 'Quesadilla de Flor de Calabaza', p: 45, img: 'https://cocinamia.com.mx/wp-content/uploads/2021/03/flordecalabaza-1-1100x500.jpg' },
+    { id: 40, cat: '🥘 Tradicional', res: 'Restaurante Tlamanalli', url: 'https://menuoaxaca.com/tlamanalli', n: 'Sopa de Calabaza y Elote', p: 180, img: 'https://img-global.cpcdn.com/recipes/1330604659baa8bf/680x781cq80/sopa-de-calabacitas-y-elote-foto-principal.jpg' },
 
     // 41-50: El Cierre de la Primera Tanda
-    { id: 41, cat: '🍴 Gourmet', res: 'Zandunga', url: 'https://menuoaxaca.com/zandunga', n: 'Garnachas Istmeñas (Orden)', p: 160, img: 'https://images.unsplash.com/photo-1593560704563-f176a2eb61db?w=700' },
-    { id: 42, cat: '🥃 Mezcal', res: 'Expendio Tradición', url: 'https://menuoaxaca.com/tradicion', n: 'Cóctel de Mezcal con Maracuyá', p: 140, img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700' },
+    { id: 41, cat: '🍴 Gourmet', res: 'Zandunga', url: 'https://menuoaxaca.com/zandunga', n: 'Garnachas Istmeñas (Orden)', p: 160, img: 'https://static.wixstatic.com/media/7ea955_c9187a6d048b449a8f7e781722f95e59~mv2.jpg/v1/fill/w_1000,h_750,al_c,q_85,usm_0.66_1.00_0.01/7ea955_c9187a6d048b449a8f7e781722f95e59~mv2.jpg' },
+    { id: 42, cat: '🥃 Mezcal', res: 'Expendio Tradición', url: 'https://menuoaxaca.com/tradicion', n: 'Cóctel de Mezcal con Maracuyá', p: 140, img: 'https://i0.wp.com/hotbook.mx/wp-content/uploads/2022/06/mezcalina-de-maracuya-3-deliciosos-cocteles-de-mezcal-para-este-verano.jpeg?resize=960%2C640&ssl=1' },
     { id: 43, cat: '🥘 Tradicional', res: 'La Popular', url: 'https://menuoaxaca.com/lapopular', n: 'Costilla en Salsa de Chicatana', p: 275, img: 'https://images.unsplash.com/photo-1544124499-58912cbddaad?w=700' },
-    { id: 44, cat: '🌮 Antojos', res: 'Tacos de Cazuela El Carmen', url: 'https://menuoaxaca.com/elcarmencazuela', n: 'Taco de Guisado Tradicional', p: 35, img: 'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=700' },
-    { id: 45, cat: '🥘 Tradicional', res: 'Guiie Ngola', url: 'https://menuoaxaca.com/guiiengola', n: 'Pollo Garnachero Istmeño', p: 185, img: 'https://images.unsplash.com/photo-1615870534541-58309a80027d?w=700' },
-    { id: 46, cat: '🌮 Antojos', res: 'Mercado de Tlacolula', url: 'https://menuoaxaca.com/tlacolula', n: 'Barbacoa de Tlacolula (Orden)', p: 220, img: 'https://images.unsplash.com/photo-1555350193-c5897af32411?w=700' },
-    { id: 47, cat: '🍹 Bebidas', res: 'Boulenc', url: 'https://menuoaxaca.com/boulenc', n: 'Kombucha Artesanal de la Casa', p: 85, img: 'https://images.unsplash.com/photo-1556881286-fc6915169721?w=700' },
-    { id: 48, cat: '🥘 Tradicional', res: 'Las Quince Letras', url: 'https://menuoaxaca.com/15letras', n: 'Trilogía de Moles', p: 310, img: 'https://images.unsplash.com/photo-1624300603538-1207400f4116?w=700' },
-    { id: 49, cat: '🌮 Antojos', res: 'Tacos de Cazuela "La Güera"', url: 'https://menuoaxaca.com/laguera', n: 'Taco de Chicharrón en Salsa Verde', p: 35, img: 'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=700' },
-    { id: 50, cat: '🍮 Postres', res: 'Muss Café', url: 'https://menuoaxaca.com/muss', n: 'Affogato con Mezcal y Vainilla', p: 110, img: 'https://images.unsplash.com/photo-1594910413527-567ce480139d?w=700' },
+    { id: 44, cat: '🌮 Antojos', res: 'Tacos de Cazuela El Carmen', url: 'https://menuoaxaca.com/elcarmencazuela', n: 'Taco de Guisado Tradicional', p: 35, img: 'https://www.gastrolabweb.com/u/fotografias/m/2022/3/29/f850x638-27614_105103_5050.jpg' },
+    { id: 45, cat: '🥘 Tradicional', res: 'Guiie Ngola', url: 'https://menuoaxaca.com/guiiengola', n: 'Pollo Garnachero Istmeño', p: 185, img: 'https://img-global.cpcdn.com/recipes/d59a0fa400cd259c/1200x630cq80/photo.jpg' },
+    { id: 46, cat: '🌮 Antojos', res: 'Mercado de Tlacolula', url: 'https://menuoaxaca.com/tlacolula', n: 'Barbacoa de Tlacolula (Orden)', p: 220, img: 'https://lechecontuna.com/wp-content/uploads/2021/09/Don-Pedro-14lct.jpg' },
+    { id: 47, cat: '🍹 Bebidas', res: 'Boulenc', url: 'https://menuoaxaca.com/boulenc', n: 'Kombucha Artesanal de la Casa', p: 95, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGPoEmvNURoq_LryfhmEVODxNfZ_6Kyoa9CQ&s' },
+    { id: 48, cat: '🥘 Tradicional', res: 'Las Quince Letras', url: 'https://menuoaxaca.com/15letras', n: 'Trilogía de Moles', p: 310, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmDKtyFjBj-NKCN5mH8mrz03-i-AJNWV4uDw&s' },
+    { id: 49, cat: '🌮 Antojos', res: 'Tacos de Cazuela "La Güera"', url: 'https://menuoaxaca.com/laguera', n: 'Taco de Chicharrón en Salsa Verde', p: 35, img: 'https://www.gastrolabweb.com/u/fotografias/m/2020/8/28/f1280x720-2895_134570_5945.jpg' },
+    { id: 50, cat: '🍮 Postres', res: 'Muss Café', url: 'https://menuoaxaca.com/muss', n: 'Affogato con Mezcal y Vainilla', p: 110, img: 'https://www.cocinadelirante.com/sites/default/files/images/2024/09/como-hacer-affogato.jpg' },
 
     // 51-60: Joyas de Barrio
     { id: 51, cat: '🥘 Tradicional', res: 'La Redención', url: 'https://menuoaxaca.com/redencion', n: 'Conejo en Adobo de Chile Pasilla', p: 245, img: 'https://images.unsplash.com/photo-1544124499-58912cbddaad?w=700' },
@@ -562,7 +596,9 @@ window.onload = () => {
                 <div class="img-wrap"><img src="${p.img}" class="card-img"></div>
                 <div class="card-body">
                     <a href="${p.url}" target="_blank" class="res-link">📍 ${p.res}</a>
-                    <div style="font-weight:800; margin-bottom:15px; height:40px;">${p.n}</div>
+                    <div style="font-weight:800; margin-bottom:15px; height:40px; color: var(--text-main);">
+    ${p.n}
+</div>
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <span style="font-weight:900; color:var(--oax-pink);">$${p.p}</span>
                         <button class="btn-add" onclick="add(${p.id})">AÑADIR</button>
@@ -589,31 +625,6 @@ window.onload = () => {
             toggleCart();
         }
     }
-    function actualizarTotalHeader() {
-    // 1. Obtener los productos guardados en el almacenamiento local
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    
-    // 2. Sumar los precios (asumiendo que cada item tiene una propiedad 'precio')
-    const total = carrito.reduce((acc, item) => acc + (item.precio || 0), 0);
-    
-    // 3. Pintar en el header (formateado a moneda)
-    const el = document.getElementById('cart-total-header');
-    if (el) {
-        el.innerText = `$${total.toFixed(2)}`;
-    }
-}
-    function agregarAlCarrito(nombre, precio) {
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    
-    carrito.push({ n: nombre, precio: precio });
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-
-    // ESTO ES LO QUE TE FALTA:
-    actualizarTotalHeader(); 
-    
-    // Opcional: Una alerta visual
-    console.log(`${nombre} agregado a menuoaxaca.com`);
-}
 
     function save() { 
         localStorage.setItem('oax_v11_pro', JSON.stringify(cart)); 
@@ -622,27 +633,34 @@ window.onload = () => {
     }
 
     function updateUI() {
-    // 1. Filtramos solo los precios numéricos para el subtotal
+    // 1. Calculamos el subtotal de los productos
     const sub = cart.reduce((a, b) => a + (typeof b.p === 'number' ? b.p : 0), 0);
-    const ship = parseInt(document.getElementById('ship-zone').value);
     
+    // 2. Obtenemos el costo de envío (asegúrate que el ID coincida)
+    const shipElement = document.getElementById('ship-zone');
+    const ship = shipElement ? parseInt(shipElement.value) : 0;
+    
+    // 3. ACTUALIZAMOS EL HEADER (Lo que te faltaba)
     document.getElementById('c-count').innerText = cart.length;
+    const headerTotal = document.getElementById('c-total');
+    if (headerTotal) {
+        headerTotal.innerText = sub.toFixed(2); // Muestra el subtotal en el header
+    }
 
-    // 2. Aquí aplicamos la lógica de "Cotizando"
+    // 4. ACTUALIZAMOS EL TOTAL DEL PANEL DEL CARRITO
     const totalDisplay = document.getElementById('final-total');
-    
-    if (sub === 0 && cart.length > 0) {
-        // Si hay cosas pero nada tiene precio fijo (solo pedidos especiales)
-        totalDisplay.innerText = "Cotizando";
-    } else if (sub > 0) {
-        // Si hay productos con precio, sumamos el envío
-        totalDisplay.innerText = `$${sub + ship}`;
-    } else {
-        // Si el carrito está vacío
-        totalDisplay.innerText = "$0";
+    if (totalDisplay) {
+        if (sub === 0 && cart.length > 0) {
+            totalDisplay.innerText = "Cotizando";
+        } else if (sub > 0) {
+            totalDisplay.innerText = `$${sub + ship}`;
+        } else {
+            totalDisplay.innerText = "$0";
+        }
     }
 }
 
+  
    function renderCart() {
     document.getElementById('cart-items').innerHTML = cart.map((item, i) => {
         // Lógica para mostrar el precio o la palabra "Cotizando"
@@ -678,9 +696,6 @@ window.onload = () => {
     }
 
     renderCats(); renderProducts(); updateUI(); renderCart();
-    document.addEventListener('DOMContentLoaded', () => {
-    actualizarTotalHeader();
-});
 </script>
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
