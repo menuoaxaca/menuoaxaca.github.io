@@ -609,26 +609,34 @@ window.onload = () => {
     }
 
     function setCat(c) { currentCat = c; renderCats(); renderProducts(); notify(`Filtrando: ${c}`); }
+function renderProducts() {
+    const grid = document.getElementById('product-grid');
+    const items = currentCat === '✨ Todos' ? db : db.filter(p => p.cat === currentCat);
+    
+    // Agregamos 'i' para identificar la posición del platillo
+    grid.innerHTML = items.map((p, i) => {
+        
+        // Si el índice 'i' es menor a 10, se guarda el HTML de la etiqueta. Si no, queda vacío.
+        const topLabel = (i < 10) ? `<div class="badge-top">TOP OAXACA</div>` : '';
 
-    function renderProducts() {
-        const grid = document.getElementById('product-grid');
-        const items = currentCat === '✨ Todos' ? db : db.filter(p => p.cat === currentCat);
-        grid.innerHTML = items.map(p => `
+        return `
             <div class="card">
+                ${topLabel}
                 <div class="img-wrap"><img src="${p.img}" class="card-img"></div>
                 <div class="card-body">
                     <a href="${p.url}" target="_blank" class="res-link">📍 ${p.res}</a>
                     <div style="font-weight:800; margin-bottom:15px; height:40px; color: var(--text-main);">
-    ${p.n}
-</div>
+                        ${p.n}
+                    </div>
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <span style="font-weight:900; color:var(--oax-pink);">$${p.p}</span>
                         <button class="btn-add" onclick="add(${p.id})">AÑADIR</button>
                     </div>
                 </div>
             </div>
-        `).join('');
-    }
+        `;
+    }).join('');
+}
 
     function add(id) {
         const p = db.find(x => x.id === id);
