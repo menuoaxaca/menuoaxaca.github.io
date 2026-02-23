@@ -145,7 +145,7 @@ body.day-mode {
     <div class="logo" onclick="location.reload()">MENUOAXACA</div>
      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
     🌙 </button>
-    <button class="cart-trigger" onclick="toggleCart()">🛒 <span id="c-count">0</span> | $<span id="c-total">0</span></button>
+    <button class="cart-trigger" onclick="toggleCart()">🛒 <span id="cart-total-header">$0.00</span> | $<span id="c-total">0</span></button>
 </header>
 
 <div id="notification-container"></div>
@@ -589,6 +589,31 @@ window.onload = () => {
             toggleCart();
         }
     }
+    function actualizarTotalHeader() {
+    // 1. Obtener los productos guardados en el almacenamiento local
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    // 2. Sumar los precios (asumiendo que cada item tiene una propiedad 'precio')
+    const total = carrito.reduce((acc, item) => acc + (item.precio || 0), 0);
+    
+    // 3. Pintar en el header (formateado a moneda)
+    const el = document.getElementById('cart-total-header');
+    if (el) {
+        el.innerText = `$${total.toFixed(2)}`;
+    }
+}
+    function agregarAlCarrito(nombre, precio) {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    carrito.push({ n: nombre, precio: precio });
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // ESTO ES LO QUE TE FALTA:
+    actualizarTotalHeader(); 
+    
+    // Opcional: Una alerta visual
+    console.log(`${nombre} agregado a menuoaxaca.com`);
+}
 
     function save() { 
         localStorage.setItem('oax_v11_pro', JSON.stringify(cart)); 
@@ -653,6 +678,9 @@ window.onload = () => {
     }
 
     renderCats(); renderProducts(); updateUI(); renderCart();
+    document.addEventListener('DOMContentLoaded', () => {
+    actualizarTotalHeader();
+});
 </script>
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
