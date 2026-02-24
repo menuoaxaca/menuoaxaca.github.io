@@ -17,6 +17,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
 
     <style>
+        .search-suggestions {
+    position: absolute;
+    width: 88%;
+    background: #111; /* Color sólido para que no transparente */
+    border-radius: 15px;
+    margin-top: 5px;
+    z-index: 99999; /* El número más alto para que flote sobre todo */
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--oax-pink);
+    display: none;
+}
+.search-suggestions.active { display: block; }
         .search-container {
     padding: 20px 6%;
     background: var(--bg);
