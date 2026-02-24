@@ -17,69 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
 
     <style>
-        .search-suggestions {
-    position: absolute;
-    width: 88%;
-    background: #111; /* Color sólido para que no transparente */
-    border-radius: 15px;
-    margin-top: 5px;
-    z-index: 99999; /* El número más alto para que flote sobre todo */
-    max-height: 400px;
-    overflow-y: auto;
-    border: 1px solid var(--oax-pink);
-    display: none;
-}
-.search-suggestions.active { display: block; }
-        .search-container {
-    padding: 20px 6%;
-    background: var(--bg);
-    margin-top: -10px; /* Ajuste para pegarse a la nav */
-}
-
-#main-search {
-    width: 100%;
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 15px 25px;
-    border-radius: 50px;
-    color: var(--text-main);
-    font-family: 'Outfit', sans-serif;
-    outline: none;
-    transition: 0.3s;
-    font-size: 1rem;
-}
-
-#main-search:focus {
-    border-color: var(--oax-pink);
-    box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
-}
-
-.search-suggestions {
-    position: absolute;
-    width: 88%;
-    background: var(--card);
-    border-radius: 20px;
-    margin-top: 10px;
-    z-index: 1000;
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid var(--border);
-    display: none; /* Se activa con JS */
-}
-
-.search-suggestions.active { display: block; }
-
-.search-item {
-    padding: 15px 20px;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.search-item:hover { background: rgba(255, 0, 128, 0.1); }
-.search-item b { color: var(--oax-pink); }
         /* Estilo base del botón del restaurante */
 .res-link { 
     display: inline-flex; 
@@ -259,12 +196,7 @@ body.day-mode #cart-panel {
 </head>
 <body>
 
-<header><div class="search-container">
-    <input type="text" id="main-search" placeholder="Busca un platillo o lugar..." onkeyup="searchMaster()">
-    <div id="search-results" class="search-suggestions"></div>
-</div>
-
-<div id="product-grid" class="main-grid"></div>
+<header>
    
     <div class="logo" onclick="location.reload()">MENUOAXACA</div>
      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
@@ -321,7 +253,6 @@ body.day-mode #cart-panel {
 </div>
 
 <script>
-    
     function toggleTheme() {
     // 1. Cambia la clase en el body
     document.body.classList.toggle('day-mode');
@@ -806,69 +737,6 @@ s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
-    function searchMaster() {
-    const input = document.getElementById('main-search');
-    const query = input.value.toLowerCase();
-    const resultsBox = document.getElementById('search-results');
-    
-    // Si el buscador está vacío, escondemos los resultados
-    if (query.length < 2) {
-        resultsBox.innerHTML = "";
-        resultsBox.classList.remove('active');
-        return;
-    }
-
-    let resultsHTML = '';
-
-    // BUSCAR EN LA LISTA DE RESTAURANTES (db)
-    // Asumiendo que 'db' es tu array de objetos principales
-    const foundInDB = db.filter(item => 
-        item.res.toLowerCase().includes(query) || 
-        item.n.toLowerCase().includes(query)
-    );
-
-    foundInDB.forEach(item => {
-        resultsHTML += `
-            <div class="search-item" onclick="seleccionarRestaurante('${item.res}')">
-                <div>
-                    <b style="color:var(--oax-pink)">📍 ${item.res}</b><br>
-                    <small style="color:#fff">${item.n}</small>
-                </div>
-            </div>`;
-    });
-
-    // BUSCAR DENTRO DE LOS MENÚS (baseDatosMenu)
-    for (let restaurante in baseDatosMenu) {
-        baseDatosMenu[restaurante].forEach(plato => {
-            if (plato.n.toLowerCase().includes(query)) {
-                resultsHTML += `
-                    <div class="search-item" onclick="openMenu('${restaurante}')">
-                        <div>
-                            <b style="color:#fff">🍽️ ${plato.n}</b><br>
-                            <small style="color:var(--oax-pink)">En ${restaurante.toUpperCase()}</small>
-                        </div>
-                        <span style="color:#fff">$${plato.p}</span>
-                    </div>`;
-            }
-        });
-    }
-
-    if (resultsHTML !== '') {
-        resultsBox.innerHTML = resultsHTML;
-        resultsBox.classList.add('active');
-    } else {
-        resultsBox.innerHTML = "<div class='search-item'>No se encontró nada...</div>";
-        resultsBox.classList.add('active');
-    }
-}
-
-// Función auxiliar para cerrar y limpiar
-function seleccionarRestaurante(nombre) {
-    document.getElementById('main-search').value = nombre;
-    document.getElementById('search-results').classList.remove('active');
-    // Aquí puedes disparar tu filtro de categorías si quieres
-    setCat('✨ Todos'); 
-}
 </script>
 <!--End of Tawk.to Script-->
 </body>
