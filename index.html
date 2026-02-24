@@ -608,9 +608,17 @@ window.onload = () => {
     }
 
     function setCat(c) { currentCat = c; renderCats(); renderProducts(); notify(`Filtrando: ${c}`); }
-function renderProducts() {
+function renderProducts(customItems = null) {
     const grid = document.getElementById('product-grid');
-    const items = currentCat === '✨ Todos' ? db : db.filter(p => p.cat === currentCat);
+    
+    // Usamos los items buscados o filtramos por categoría actual
+    const items = customItems ? customItems : (currentCat === '✨ Todos' ? db : db.filter(p => p.cat === currentCat));
+    
+    // Si no hay resultados
+    if (items.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: var(--oax-pink); font-family: 'Syncopate';">No se encontraron resultados</div>`;
+        return;
+    }
     
     // Agregamos 'i' para identificar la posición del platillo
     grid.innerHTML = items.map((p, i) => {
@@ -725,6 +733,48 @@ function renderProducts() {
     }
 
     renderCats(); renderProducts(); updateUI(); renderCart();
+  function toggleSearchModal() {
+    const modal = document.getElementById('search-modal');
+    if (modal.style.display === 'flex') {
+        modal.style.display = 'none';
+    } else {
+        modal.style.display = 'flex';
+        // Pone el foco automáticamente en el buscador al abrir
+        setTimeout(() => document.getElementById('main-search').focus(), 100);
+    }
+}
+
+function searchProducts() {
+    const query = document.getElementById('main-search').value.toLowerCase();
+    const countDisplay = document.getElementById('search-results-count');
+    
+    // Si está vacío, mostramos todos y limpiamos el contador
+    if (query === '') {
+        renderProducts();
+        countDisplay.innerText = "";
+        return;
+    }
+    
+    // Filtrar en la base de datos
+    const filtered = db.filter(p => 
+        p.n.toLowerCase().includes(query) || 
+        p.res.toLowerCase().includes(query) ||
+        p.cat.toLowerCase().includes(query)
+    );
+    
+    // Renderizar solo lo filtrado
+    renderProducts(filtered);
+    
+    // Mostrar cuántos se encontraron
+    countDisplay.innerText = `${filtered.length} RESULTADOS ENCONTRADOS`;
+
+    // Si el usuario presiona Enter, cerramos el modal para que vea los resultados
+    document.getElementById('main-search').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            toggleSearchModal();
+        }
+    });
+}
 </script>
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -739,7 +789,7 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
-    <div id="search-trigger" onclick="toggleSearchModal()" style="position: fixed; bottom: 85px; right: 20px; width: 60px; height: 60px; background: var(--oax-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000; transition: 0.3s;">
+  <div id="search-trigger" onclick="toggleSearchModal()" style="position: fixed; bottom: 85px; right: 20px; width: 60px; height: 60px; background: var(--oax-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000; transition: 0.3s;">
     <span style="font-size: 1.5rem;">🔍</span>
 </div>
 
