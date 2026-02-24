@@ -197,6 +197,10 @@ body.day-mode #cart-panel {
 <body>
 
 <header>
+    <div class="search-container">
+    <input type="text" id="main-search" placeholder="Busca tlayudas, mezcal o un lugar..." onkeyup="searchMaster()">
+    <div id="search-results" class="search-suggestions"></div>
+</div>
    
     <div class="logo" onclick="location.reload()">MENUOAXACA</div>
      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
