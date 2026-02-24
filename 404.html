@@ -1,98 +1,121 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Socio Premium | MenuOaxaca</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Corrección de borde derecho y scroll horizontal */
+        html, body { 
+            overflow-x: hidden; 
+            margin: 0; 
+            padding: 0; 
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
         body { font-family: 'Outfit', sans-serif; }
         .hero-gradient { background: linear-gradient(135deg, #4338ca 0%, #db2777 100%); }
         .card-step { border-left: 5px solid #6366f1; }
-        .map-container { position: relative; padding-bottom: 45%; height: 0; overflow: hidden; border-radius: 2rem; }
-        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .benefit-card:hover { transform: translateY(-5px); transition: 0.3s; }
+        
+        /* Contenedor de mapa corregido para no desbordar */
+        .map-container { 
+            position: relative; 
+            padding-bottom: 50%; 
+            height: 0; 
+            overflow: hidden; 
+            border-radius: 2rem;
+            width: 100%;
+        }
+        .map-container iframe { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: 0; 
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <nav class="p-4 bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 flex justify-between items-center px-8">
+    <nav class="w-full p-4 bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 flex justify-between items-center px-4 md:px-8">
         <div class="text-2xl font-bold text-indigo-700">Menu<span class="text-pink-600">Oaxaca</span></div>
-        <div class="text-xs font-bold bg-green-100 text-green-700 px-4 py-1.5 rounded-full tracking-widest uppercase">Socios Activos 2026</div>
+        <div class="text-[10px] md:text-xs font-bold bg-green-100 text-green-700 px-3 py-1.5 rounded-full tracking-widest uppercase">Socios Activos 2026</div>
     </nav>
 
-    <header class="hero-gradient text-white py-16 px-6 text-center">
-        <h1 id="titulo-negocio" class="text-5xl md:text-6xl font-extrabold mb-4 capitalize italic text-yellow-300">Cargando...</h1>
-        <p class="text-xl opacity-90 max-w-2xl mx-auto">Tu ubicación ha sido detectada con éxito. Confirma tu menú digital.</p>
+    <header class="hero-gradient text-white py-16 px-4 text-center">
+        <h1 id="titulo-negocio" class="text-4xl md:text-6xl font-extrabold mb-4 capitalize italic text-yellow-300">Cargando...</h1>
+        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">Tu ubicación ha sido detectada con éxito. Confirma tu menú digital.</p>
     </header>
 
-    <main class="max-w-6xl mx-auto py-8 px-6">
+    <main class="max-w-6xl mx-auto py-8 px-4 md:px-6">
         
-        <section class="mb-12">
-            <div class="bg-slate-900 rounded-[2.5rem] p-4 shadow-2xl">
-                <div class="flex items-center gap-3 mb-4 ml-4 mt-2">
+        <section class="mb-10 w-full">
+            <div class="bg-slate-900 rounded-[2.5rem] p-3 md:p-4 shadow-2xl overflow-hidden">
+                <div class="flex items-center gap-3 mb-4 ml-2 mt-2">
                     <span class="bg-pink-500 text-white p-2 rounded-lg text-sm">📍</span>
-                    <h2 class="text-white font-bold text-lg">Ubicación Registrada en Oaxaca</h2>
+                    <h2 class="text-white font-bold text-base md:text-lg">Ubicación Registrada en Oaxaca</h2>
                 </div>
-                <div id="contenedor-mapa" class="map-container border-4 border-white/5">
+                <div id="contenedor-mapa" class="map-container border-2 md:border-4 border-white/5">
                     </div>
             </div>
         </section>
 
         <div class="grid lg:grid-cols-12 gap-8 items-start">
             
-            <div class="lg:col-span-7 space-y-8">
-                <div class="bg-white rounded-3xl shadow-xl p-8 card-step">
-                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-3 text-indigo-900">
-                        <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+            <div class="lg:col-span-7 space-y-6">
+                <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 card-step">
+                    <h2 class="text-xl md:text-2xl font-bold mb-6 text-indigo-900 flex items-center gap-3">
+                        <span class="bg-indigo-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs">1</span>
                         Identidad del Negocio
                     </h2>
-                    <div class="grid md:grid-cols-2 gap-5">
-                        <div class="col-span-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-tighter ml-1">Nombre Comercial</label>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nombre Comercial</label>
                             <input type="text" id="inputNombre" class="w-full p-4 border-2 border-slate-100 rounded-2xl font-bold text-indigo-600 bg-slate-50 outline-none">
                         </div>
-                        <div class="col-span-2 md:col-span-1">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-tighter ml-1">WhatsApp de contacto</label>
-                            <input type="tel" id="inputTel" placeholder="951 XXX XXXX" class="w-full p-4 border-2 border-orange-100 rounded-2xl outline-none focus:border-orange-500 shadow-sm">
+                        <div>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">WhatsApp de contacto</label>
+                            <input type="tel" id="inputTel" placeholder="951 XXX XXXX" class="w-full p-4 border-2 border-orange-100 rounded-2xl outline-none focus:border-orange-500">
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-3xl shadow-xl p-8 card-step">
-                    <h2 class="text-2xl font-bold mb-2 flex items-center gap-3 text-indigo-900">
-                        <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                        Menú sugerido para el alta
+                <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 card-step">
+                    <h2 class="text-xl md:text-2xl font-bold mb-2 text-indigo-900 flex items-center gap-3">
+                        <span class="bg-indigo-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs">2</span>
+                        Menú sugerido
                     </h2>
-                    <p class="text-xs text-slate-400 mb-6 uppercase tracking-widest font-bold italic">Selección basada en el historial del lugar</p>
+                    <p class="text-[10px] text-slate-400 mb-6 uppercase tracking-widest font-bold italic">Basado en tu establecimiento</p>
                     <div id="contenedor-platillos" class="space-y-4">
                         </div>
                 </div>
             </div>
 
             <div class="lg:col-span-5">
-                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 sticky top-28">
-                    <h3 class="text-2xl font-black mb-6 text-indigo-900">¡Tu Menú listo hoy!</h3>
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 lg:sticky lg:top-28">
+                    <h3 class="text-xl md:text-2xl font-black mb-6 text-indigo-900 text-center lg:text-left">¡Tu Menú hoy mismo!</h3>
                     
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start gap-3">
-                            <span class="bg-green-100 text-green-600 p-1 rounded-full text-xs">✔</span>
-                            <p class="text-sm text-slate-600">Actualiza precios sin volver a imprimir.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-slate-600">
+                            <span class="text-green-500 font-bold">✓</span> Ahorro total en impresiones.
                         </li>
-                        <li class="flex items-start gap-3">
-                            <span class="bg-green-100 text-green-600 p-1 rounded-full text-xs">✔</span>
-                            <p class="text-sm text-slate-600">Diseño optimizado para turistas (QR).</p>
+                        <li class="flex items-center gap-3 text-sm text-slate-600">
+                            <span class="text-green-500 font-bold">✓</span> Código QR de alta velocidad.
                         </li>
-                        <li class="flex items-start gap-3">
-                            <span class="bg-green-100 text-green-600 p-1 rounded-full text-xs">✔</span>
-                            <p class="text-sm text-slate-600">Presencia oficial en el mapa de MenuOaxaca.</p>
+                        <li class="flex items-center gap-3 text-sm text-slate-600">
+                            <span class="text-green-500 font-bold">✓</span> Indexación en buscador turístico.
                         </li>
                     </ul>
 
-                    <button onclick="finalizarRegistro()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-6 rounded-2xl font-black text-xl transition-all shadow-xl hover:scale-[1.02] active:scale-95">
+                    <button onclick="finalizarRegistro()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-95">
                         ¡DARME DE ALTA YA! 🚀
                     </button>
-                    <p class="text-[11px] text-center text-slate-400 mt-4 px-4 italic">Al confirmar, enviaremos tus datos a soporte técnico para generar tu código QR personalizado.</p>
+                    <p class="text-[10px] text-center text-slate-400 mt-4 italic">Confirmaremos tus datos vía WhatsApp para activar tu panel.</p>
                 </div>
             </div>
 
@@ -100,144 +123,49 @@
     </main>
 
     <script>
-        // BASE DE DATOS DE PLATILLOS (Ejemplos reales de Oaxaca)
-       const baseDatosMenu = {
-    // --- RESTAURANTES (50 items) ---
-    "criollo": [{n: "Menú Degustación", p: 1250}, {n: "Tamal de Alcachofa", p: 185}, {n: "Pato en Manchamanteles", p: 480}],
-    "casa oaxaca": [{n: "Salsa de Mesa", p: 145}, {n: "Lechón Confitado", p: 410}, {n: "Venado Marinado", p: 225}],
-    "levadura de olla": [{n: "Ensalada de Tomates", p: 190}, {n: "Tamal de Tichinda", p: 120}, {n: "Mole de Guayaba", p: 285}],
-    "pitiona": [{n: "Sopa de Guías", p: 165}, {n: "Chichilo con Venado", p: 450}, {n: "Tiburón de Maíz", p: 210}],
-    "origen": [{n: "Aguachile de Tasajo", p: 240}, {n: "Risotto de Hongos", p: 310}, {n: "Pesca del Día", p: 395}],
-    "las quince letras": [{n: "Trilogía de Moles", p: 350}, {n: "Sopa de Milpa", p: 115}, {n: "Conejo Coloradito", p: 295}],
-    "alfonsina": [{n: "Menú del Día (Campo)", p: 650}, {n: "Mole de Rancho", p: 320}, {n: "Mezcal Ancestral", p: 140}],
-    "ancestral cocina": [{n: "Mole Negro Jalatlaco", p: 280}, {n: "Tostada de Pulpo", p: 195}, {n: "Cerveza Artesanal", p: 95}],
-    "la biznaga": [{n: "Sopa de Tortilla", p: 130}, {n: "Pechuga en Mole", p: 290}, {n: "Ensalada Higo", p: 185}],
-    "zandunga": [{n: "Garnachas (6 piezas)", p: 160}, {n: "Pollo Garnachero", p: 245}, {n: "Minilla de Pescado", p: 190}],
-    "los danzantes": [{n: "Hoja Santa con Queso", p: 195}, {n: "Arroz con Pulpo", p: 380}, {n: "Mezcal Danzantes", p: 160}],
-    "itanoni": [{n: "Tetela de Hoja Santa", p: 85}, {n: "Tascalate Frío", p: 55}, {n: "De la Milpa (Plato)", p: 180}],
-    "el destilado": [{n: "Tasting Menu (9 tiempos)", p: 1800}, {n: "Taco de Pescado", p: 110}, {n: "Mezcal Flight", p: 550}],
-    "teocintle": [{n: "Menú Tradición Mixteca", p: 750}, {n: "Sopa de Maíz", p: 120}, {n: "Agua de Temporada", p: 45}],
-    "tierra del sol": [{n: "Chiles Rellenos", p: 260}, {n: "Sopa Mixteca", p: 140}, {n: "Tlayuda Gourmet", p: 210}],
-    "la olla": [{n: "Enmoladas (3 piezas)", p: 155}, {n: "Sopa de Guías", p: 125}, {n: "Café de Olla", p: 45}],
-    "boulenc": [{n: "Pizza Masa Madre", p: 285}, {n: "Sándwich Pastrami", p: 215}, {n: "Croissant Almendra", p: 75}],
-    "crudo": [{n: "Omakase Oaxaqueño", p: 1400}, {n: "Nigiri de Tasajo", p: 120}, {n: "Sake de la Casa", p: 220}],
-    "mo-kalli": [{n: "Mole Negro Casero", p: 220}, {n: "Enfrijoladas", p: 130}, {n: "Tejate Vaso", p: 50}],
-    "tlamanalli": [{n: "Menú Zapoteco Realeza", p: 950}, {n: "Mole Segueza", p: 340}, {n: "Chocolate Agua", p: 65}],
-    "tr3s 3 bistro": [{n: "Ceviche del Puerto", p: 245}, {n: "Filete al Mezcal", p: 390}, {n: "Copa de Vino", p: 140}],
-    "expendio tradicion": [{n: "Tostada Salpicón", p: 155}, {n: "Mezcal Pechuga", p: 190}, {n: "Burger Oaxaqueña", p: 280}],
-    "la tequilera": [{n: "Tacos de Arrachera", p: 210}, {n: "Sopa de Lima", p: 115}, {n: "Tequila Shot", p: 95}],
-    "catedral": [{n: "Chiles en Nogada Oax", p: 380}, {n: "Filete Catedral", p: 450}, {n: "Sopa de Elote", p: 120}],
-    "gozobi": [{n: "Pizza Oaxaqueña", p: 260}, {n: "Alitas Adobadas", p: 185}, {n: "Tarro Cerveza", p: 85}],
-    "muss café": [{n: "Espresso Doble", p: 55}, {n: "Toast de Aguacate", p: 165}, {n: "Cold Brew", p: 75}],
-    "hierba dulce": [{n: "Tacos de Hongos", p: 175}, {n: "Mole Vegano", p: 240}, {n: "Kombucha Casa", p: 85}],
-    "sin nombre": [{n: "Menú Vegetal Lujo", p: 850}, {n: "Risotto de Calabaza", p: 320}, {n: "Mezcal Wild", p: 210}],
-    "chepiche café": [{n: "Huevos Benedictinos", p: 195}, {n: "Chilaquiles Rojos", p: 160}, {n: "Jugo Naranja", p: 55}],
-    "la popular": [{n: "Tlayuda Popular", p: 145}, {n: "Tostada de Pulpo", p: 110}, {n: "Mezcal Joven", p: 90}],
-    "cabuche": [{n: "Pozole Guerrerense", p: 165}, {n: "Taco de Guisado", p: 45}, {n: "Agua de Jamaica", p: 40}],
-    "doña vale": [{n: "Memela con Quesillo", p: 45}, {n: "Memela con Costilla", p: 75}, {n: "Café de Olla", p: 30}],
-    "pasillo de humo": [{n: "Tasajo (250g)", p: 195}, {n: "Chorizo (250g)", p: 180}, {n: "Tlayuda c/Asiento", p: 95}],
-    "la red": [{n: "Cóctel de Camarón", p: 210}, {n: "Pescado Frito", p: 320}, {n: "Cerveza Media", p: 55}],
-    "pez": [{n: "Tostada de Atún", p: 95}, {n: "Taco de Pescado", p: 65}, {n: "Agua del Día", p: 40}],
-    "el escapulario": [{n: "Mole Negro Real", p: 295}, {n: "Sopa de Tortilla", p: 115}, {n: "Mezcal Casa", p: 110}],
-    "durango 214": [{n: "Hamburgesa Autor", p: 240}, {n: "Papas Trufadas", p: 145}, {n: "Cerveza Artesanal", p: 95}],
-    "el típico": [{n: "Platón Oaxaqueño", p: 350}, {n: "Enmoladas", p: 140}, {n: "Agua de Fruta", p: 45}],
-    "comedor mary": [{n: "Tlayuda Mary", p: 120}, {n: "Empanada Amarillo", p: 45}, {n: "Chocolate Vaso", p: 40}],
-    "biaani' roo": [{n: "Garnachas Istmo", p: 155}, {n: "Tamal Iguana (Temp)", p: 180}, {n: "Mezcal Pechuga", p: 165}],
-    "kozii": [{n: "Ramen Oaxaqueño", p: 220}, {n: "Gyozas de Tasajo", p: 130}, {n: "Té Verde", p: 55}],
-    "sirilo": [{n: "Ceviche Sirilo", p: 245}, {n: "Tostada de Marlin", p: 110}, {n: "Clamato", p: 85}],
-    "la toscana": [{n: "Lasaña Oaxaqueña", p: 280}, {n: "Pasta al Mezcal", p: 265}, {n: "Copa de Vino", p: 120}],
-    "masea": [{n: "Pan de Maíz", p: 65}, {n: "Tetela Gourmet", p: 95}, {n: "Café de Origen", p: 60}],
-    "pan:am": [{n: "Huevos Cazuela", p: 165}, {n: "Waffles Frutos", p: 145}, {n: "Latte", p: 65}],
-    "tani vao": [{n: "Estofado de Bodas", p: 240}, {n: "Sopa de Guías", p: 115}, {n: "Agua Chilacayote", p: 45}],
-    "las rosas": [{n: "Caldo de Pollo", p: 130}, {n: "Enfrijoladas", p: 115}, {n: "Café Olla", p: 35}],
-    "arugula": [{n: "Ensalada Detox", p: 185}, {n: "Smoothie Green", p: 95}, {n: "Bowl Quinoa", p: 170}],
-    "onnno lonchería": [{n: "Sándwich de Huevo", p: 155}, {n: "Pancakes", p: 140}, {n: "Flat White", p: 65}],
+        const baseDatosMenu = {
+            "criollo": [
+                {n: "Menú Degustación", p: 1250},
+                {n: "Tamal de Alcachofa", p: 185},
+                {n: "Pato en Manchamanteles", p: 480}
+            ],
+            "casa oaxaca": [
+                {n: "Salsa en Molcajete", p: 145},
+                {n: "Confit de Lechón", p: 410},
+                {n: "Tostada de Venado", p: 225}
+            ]
+        };
 
-    // --- MEZCAL & NOCHE (50 items) ---
-    "sabina sabe": [{n: "Cóctel de la Casa", p: 195}, {n: "Tacos de Pescado", p: 180}, {n: "Mezcal Espadín", p: 110}],
-    "selva": [{n: "Selva Cocktail", p: 220}, {n: "Negroni Mezcal", p: 210}, {n: "Tabla Quesos", p: 320}],
-    "archivo maguey": [{n: "Mezcal Mixtape", p: 150}, {n: "Cerveza Local", p: 85}, {n: "Tostada Mezcalera", p: 120}],
-    "la mezcaloteca": [{n: "Cata Educativa", p: 650}, {n: "Mezcal Silvestre", p: 240}, {n: "Libro Agave", p: 450}],
-    "insitu": [{n: "Mezcal Raro Copa", p: 280}, {n: "Cata Básica", p: 450}, {n: "Sal de Gusano", p: 95}],
-    "mezcalogia": [{n: "Mezcal Tonic", p: 175}, {n: "Mixología Jazz", p: 195}, {n: "Snack Mezcalero", p: 120}],
-    "txalaparta": [{n: "Cerveza Litro", p: 110}, {n: "Mezcal Shot", p: 75}, {n: "Pizza Rebanada", p: 55}],
-    "la cueva": [{n: "Pint de Stout", p: 105}, {n: "Hamburgesa Rock", p: 210}, {n: "Mezcal House", p: 80}],
-    "casa el maguey": [{n: "Paloma Mezcal", p: 145}, {n: "Tacos de Tasajo", p: 160}, {n: "Cerveza Clara", p: 65}],
-    "piedra de la iguana": [{n: "Mezcalita Piña", p: 155}, {n: "Nachos Iguana", p: 185}, {n: "Mezcal Joven", p: 95}],
-    "cuish": [{n: "Mezcal Cuish Copa", p: 190}, {n: "Cata Maestros", p: 550}, {n: "Botella Cuish", p: 1200}],
-    "los amantes": [{n: "Cóctel Amante", p: 185}, {n: "Tapas Oaxaqueñas", p: 220}, {n: "Mezcal Añejo", p: 240}],
-    "aguascalientes": [{n: "Cerveza de Barril", p: 55}, {n: "Mezcal de la Casa", p: 65}, {n: "Botana Cantina", p: 0}],
-    "nueva babel": [{n: "Vino Copa", p: 115}, {n: "Cerveza Artesanal", p: 95}, {n: "Tabla Carnes", p: 280}],
-    "purgatorio": [{n: "Cóctel Místico", p: 190}, {n: "Shot Purgatorio", p: 85}, {n: "Tapas", p: 150}],
-    "el cortijo": [{n: "Mezcal Cortijo Copa", p: 160}, {n: "Cata Privada", p: 500}, {n: "Queso de Tuna", p: 110}],
-    "la farola": [{n: "Mezcal Farola", p: 85}, {n: "Cerveza Media", p: 50}, {n: "Piedrazo", p: 45}],
-    "zapoteco": [{n: "Tapas Zapotecas", p: 195}, {n: "Gin Mezcal", p: 180}, {n: "Mezcal Flight", p: 420}],
-    "#9 speakeasy": [{n: "Classic Martini", p: 220}, {n: "Secret Cocktail", p: 250}, {n: "Small Bites", p: 180}],
-    "cenaduría el barrio": [{n: "Pozole Nocturno", p: 145}, {n: "Tacos Dorados", p: 110}, {n: "Atole Vaso", p: 45}],
-    "oaxaca brewing co.": [{n: "IPA Local", p: 105}, {n: "Tasting Rack", p: 280}, {n: "Pretzel", p: 85}],
-    "santísima flor": [{n: "Pint de Saison", p: 95}, {n: "Sampler Cerveza", p: 240}, {n: "Jerky de Res", p: 130}],
-    "consejo cervecero": [{n: "Burger Consejo", p: 245}, {n: "Pinta Lager", p: 90}, {n: "Boneless", p: 185}],
-    "colectivo mezcal": [{n: "Cata 5 Varietales", p: 750}, {n: "Mezcal Jabalí", p: 280}, {n: "Sales Cata", p: 120}],
-    "la santísima": [{n: "Mezcal Grill", p: 185}, {n: "Tlayuda de Noche", p: 160}, {n: "Cerveza Fria", p: 75}],
-    "pizca": [{n: "Cóctel Pizca", p: 180}, {n: "Negroni Oax", p: 195}, {n: "Olivas Marinas", p: 110}],
-    "mesón del olivo": [{n: "Copa Vino Tinto", p: 145}, {n: "Tabla Ibericos", p: 450}, {n: "Tapa Queso", p: 85}],
-    "bar de la azotea": [{n: "Margarita Mezcal", p: 165}, {n: "Cerveza Cubetazo", p: 450}, {n: "Nachos", p: 175}],
-    "mezcalite": [{n: "Mezcalite Sabor", p: 95}, {n: "Frappé Mezcal", p: 130}, {n: "Gomitas Mezcal", p: 65}],
-    "mezcalero": [{n: "Mezcal Joven", p: 95}, {n: "Mezcalita Pepino", p: 155}, {n: "Botana Mixta", p: 140}],
-    "bar el paseo": [{n: "Gin Tonic", p: 190}, {n: "Cerveza Premium", p: 110}, {n: "Club Sándwich", p: 240}],
-    "piquete zina": [{n: "Piquete Especial", p: 145}, {n: "Mezcalina", p: 160}, {n: "Tacos de Cecina", p: 155}],
-    "expendio night": [{n: "Mezcal Design", p: 195}, {n: "Finger Food", p: 180}, {n: "Dj Set Drink", p: 170}],
-    "la mezcalería": [{n: "Mezcal Espadin", p: 110}, {n: "Cerveza Artesanal", p: 95}, {n: "Guacamole", p: 140}],
-    "destilado bar": [{n: "Mixología Nivel 1", p: 220}, {n: "Mezcal Rare", p: 350}, {n: "Snack de Autor", p: 190}],
-    "cantina el salón": [{n: "Cerveza y Clamato", p: 85}, {n: "Mezcal Directo", p: 75}, {n: "Botana Tradicional", p: 0}],
-    "maguey y maíz": [{n: "Cena Maridaje", p: 850}, {n: "Mezcal Tobalá", p: 260}, {n: "Postre Agave", p: 145}],
-    "terraza del fortín": [{n: "Coctel Fortín", p: 175}, {n: "Cerveza Litro", p: 120}, {n: "Papas Gajo", p: 110}],
-    "casa embajador": [{n: "Mezcal Embajador", p: 185}, {n: "Cata Guiada", p: 400}, {n: "Botella Souvenir", p: 1100}],
-    "humar": [{n: "Aguachile Negro", p: 265}, {n: "Mezcalita Humar", p: 175}, {n: "Cerveza Media", p: 65}],
-    "vaca marina": [{n: "Corte de Carne", p: 550}, {n: "Vino Tinto Copa", p: 160}, {n: "Ostiones (6)", p: 320}],
-    "tentación": [{n: "Mojito Mezcal", p: 155}, {n: "Cerveza Cubeta", p: 480}, {n: "Tacos de Al Pastor", p: 140}],
-    "bar central": [{n: "Cerveza Artesanal", p: 95}, {n: "Shot Mezcal", p: 70}, {n: "Papitas de Carrito", p: 45}],
-    "mezcal lab": [{n: "Experimento #1", p: 195}, {n: "Infusión Agave", p: 180}, {n: "Cata Lab", p: 550}],
-    "rooftop 105": [{n: "Sky Cocktail", p: 210}, {n: "Cerveza Premium", p: 115}, {n: "Tabla de Sushi", p: 350}],
-    "bar los guajolotes": [{n: "Mezcal Etla", p: 85}, {n: "Cerveza Clara", p: 55}, {n: "Queso con Chorizo", p: 160}],
-    "cervecería tierra blanca": [{n: "Porter Local", p: 105}, {n: "Blonde Ale", p: 95}, {n: "Hot Dog Oax", p: 120}],
-    "casamezcal": [{n: "Mezcal Galería", p: 165}, {n: "Copa de Vino", p: 130}, {n: "Bocadillos", p: 195}]
-};
         const platillosDefault = [
-            {n: "Tlayuda con Tasajo y Asiento", p: 165},
-            {n: "Mole Negro Estilo Tradicional", p: 195},
-            {n: "Mezcal Artesanal de la Casa", p: 130}
+            {n: "Tlayuda con Tasajo", p: 165},
+            {n: "Mole Negro Tradicional", p: 195},
+            {n: "Mezcal de la Casa", p: 130}
         ];
 
         document.addEventListener("DOMContentLoaded", function() {
-            // EXTRACCIÓN DE NOMBRE POR CARPETA
             const path = window.location.pathname;
             const partes = path.split('/').filter(p => p !== "" && !p.includes('.html'));
             let slug = partes.length > 0 ? partes[partes.length - 1] : "Restaurante";
             let nombreLimpio = decodeURIComponent(slug).replace(/-/g, ' ');
 
-            // ACTUALIZAR INTERFAZ
             document.getElementById('titulo-negocio').innerText = nombreLimpio;
             document.getElementById('inputNombre').value = nombreLimpio.toUpperCase();
 
-            // CARGAR MAPA PRIMERO
             const query = encodeURIComponent(nombreLimpio + " Oaxaca");
             document.getElementById('contenedor-mapa').innerHTML = `
                 <iframe 
-                    width="100%" height="100%" frameborder="0" 
                     src="https://maps.google.com/maps?q=${query}&t=&z=16&ie=UTF8&iwloc=&output=embed">
                 </iframe>`;
 
-            // CARGAR PLATILLOS
-            const listaPlatillos = baseDatosMenu[nombreLimpio.toLowerCase()] || platillosDefault;
+            const lista = baseDatosMenu[nombreLimpio.toLowerCase()] || platillosDefault;
             const contenedor = document.getElementById('contenedor-platillos');
             
-            contenedor.innerHTML = listaPlatillos.map(platillo => `
-                <div class="p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-slate-100 shadow-sm hover:border-indigo-200 transition-colors">
-                    <input type="text" class="platillo-nombre font-bold text-slate-700 bg-transparent flex-grow outline-none" value="${platillo.n}">
+            contenedor.innerHTML = lista.map(p => `
+                <div class="p-3 md:p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-slate-100 shadow-sm">
+                    <input type="text" class="font-bold text-slate-700 bg-transparent flex-grow outline-none text-sm md:text-base" value="${p.n}">
                     <div class="flex items-center bg-white px-3 py-1 rounded-xl shadow-inner ml-2">
                         <span class="text-green-600 font-bold">$</span>
-                        <input type="number" class="platillo-precio w-16 text-right font-bold outline-none" value="${platillo.p}">
+                        <input type="number" class="w-14 md:w-16 text-right font-bold outline-none" value="${p.p}">
                     </div>
                 </div>
             `).join('');
@@ -246,13 +174,13 @@
         function finalizarRegistro() {
             const nombre = document.getElementById('inputNombre').value;
             const tel = document.getElementById('inputTel').value;
-            if(!tel) { alert("Indícanos tu WhatsApp para enviar el acceso a tu menú."); return; }
-            const msg = `¡Hola! Soy de *${nombre}*. Confirmé mis datos en el portal. Quiero activar mi menú digital 2026. 🚀`;
+            if(!tel) { alert("Ingresa tu WhatsApp."); return; }
+            const msg = `¡Hola! Soy de *${nombre}*. Confirmé mis datos. Quiero mi menú digital 2026.`;
             window.open(`https://wa.me/2204891875?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
 
-    <footer class="py-12 text-center text-slate-400 text-sm border-t border-slate-100 mt-10">
+    <footer class="py-10 text-center text-slate-400 text-[10px] md:text-xs">
         <p>MenuOaxaca © 2026 | Impulsando la gastronomía oaxaqueña</p>
     </footer>
 </body>
