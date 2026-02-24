@@ -3,95 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro | MenuOaxaca</title>
+    <title>Socio Premium | MenuOaxaca</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Outfit', sans-serif; }
-        .hero-gradient { background: linear-gradient(135deg, #f97316 0%, #db2777 100%); }
-        .card-step { border-left: 4px solid #f97316; }
-        /* Estilos para el contenedor del mapa */
-        .map-container { position: relative; padding-bottom: 50%; height: 0; overflow: hidden; border-radius: 1rem; background: #e5e7eb; }
+        .hero-gradient { background: linear-gradient(135deg, #4338ca 0%, #db2777 100%); }
+        .card-step { border-left: 5px solid #6366f1; }
+        .map-container { position: relative; padding-bottom: 60%; height: 0; overflow: hidden; border-radius: 1.5rem; }
         .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .benefit-card { transition: all 0.3s ease; }
+        .benefit-card:hover { transform: translateY(-10px); }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-slate-50 text-slate-900">
 
-    <header class="hero-gradient text-white py-12 px-6 text-center">
-        <div class="text-3xl font-bold mb-2">MenuOaxaca</div>
-        <h1 id="titulo-negocio" class="text-4xl font-extrabold capitalize">Cargando...</h1>
-        <p class="opacity-90 mt-2">Configuración de menú basada en tu ubicación</p>
+    <nav class="p-4 bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 flex justify-between items-center px-8">
+        <div class="text-2xl font-bold text-indigo-700">Menu<span class="text-pink-600">Oaxaca</span></div>
+        <div class="text-xs font-bold bg-green-100 text-green-700 px-3 py-1 rounded-full uppercase tracking-widest">Socio Activo 2026</div>
+    </nav>
+
+    <header class="hero-gradient text-white py-20 px-6 text-center">
+        <div class="inline-block px-4 py-1 bg-white/20 rounded-full text-sm font-bold mb-4 backdrop-blur-md">✨ PORTAL DE SOCIOS</div>
+        <h1 id="titulo-negocio" class="text-5xl md:text-6xl font-extrabold mb-4 capitalize">Tu Restaurante</h1>
+        <p class="text-xl opacity-90 max-w-2xl mx-auto">Digitaliza tu propuesta gastronómica y conecta con miles de clientes en Oaxaca.</p>
     </header>
 
-    <main class="max-w-4xl mx-auto py-8 px-6">
+    <main class="max-w-6xl mx-auto py-12 px-6">
         
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 border-t-4 border-pink-500">
-            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-                📍 Ubicación en Mapa de: <span id="nombre-ubicacion" class="text-pink-600">...</span>
-            </h2>
-            <div id="wrapper-mapa" class="map-container">
+        <section class="mb-20 text-center">
+            <h2 class="text-3xl font-bold mb-10">¿Por qué digitalizar tu menú con nosotros?</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 benefit-card">
+                    <div class="text-4xl mb-6">📱</div>
+                    <h3 class="font-bold text-xl mb-3">Actualización Real-Time</h3>
+                    <p class="text-slate-500">Cambia precios, quita platillos agotados o agrega especiales del día al instante. Sin gastos de impresión.</p>
                 </div>
-        </div>
-
-        <div class="bg-white rounded-2xl shadow-lg p-8 card-step mb-8">
-            <h2 class="text-2xl font-bold mb-6">Datos del Establecimiento</h2>
-            <div class="grid md:grid-cols-2 gap-4">
-                <input type="text" id="nombreNegocio" class="w-full p-3 border rounded-lg bg-gray-50 font-bold" placeholder="Nombre del Negocio">
-                <input type="text" id="direccion" placeholder="Confirmar Dirección Exacta" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-orange-500 md:col-span-2">
-                <input type="tel" id="telefono" placeholder="WhatsApp" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-orange-500">
-                <input type="email" id="correo" placeholder="Email de contacto" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-orange-500">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 benefit-card">
+                    <div class="text-4xl mb-6">🌟</div>
+                    <h3 class="font-bold text-xl mb-3">Diseño de Alto Nivel</h3>
+                    <p class="text-slate-500">Tu menú se verá impecable en cualquier dispositivo, con fotos grandes y una navegación fluida para tus clientes.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 benefit-card">
+                    <div class="text-4xl mb-6">📍</div>
+                    <h3 class="font-bold text-xl mb-3">Visibilidad Turística</h3>
+                    <p class="text-slate-500">Los turistas podrán encontrarte fácilmente a través de nuestro mapa indexado de los mejores lugares de Oaxaca.</p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <button onclick="enviarRegistro()" class="w-full bg-green-600 text-white py-5 rounded-2xl font-bold text-xl hover:bg-green-700 transition shadow-lg">
-            Confirmar y Enviar Menú
-        </button>
+        <div class="grid lg:grid-cols-12 gap-10">
+            
+            <div class="lg:col-span-7 space-y-8">
+                <div class="bg-white rounded-3xl shadow-xl p-8 card-step">
+                    <h2 class="text-2xl font-bold mb-6">Confirmación de Registro</h2>
+                    <div class="grid gap-5">
+                        <div>
+                            <label class="text-xs font-bold text-slate-400 uppercase ml-1">Nombre Comercial Detectado</label>
+                            <input type="text" id="inputNombre" class="w-full p-4 border-2 border-slate-100 rounded-2xl focus:border-indigo-500 outline-none text-lg font-semibold bg-slate-50">
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="text-xs font-bold text-slate-400 uppercase ml-1">WhatsApp de Contacto</label>
+                                <input type="tel" id="inputTel" placeholder="Ej: 951 123 4567" class="w-full p-4 border-2 border-slate-100 rounded-2xl outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-400 uppercase ml-1">Tipo de Establecimiento</label>
+                                <select class="w-full p-4 border-2 border-slate-100 rounded-2xl outline-none focus:border-indigo-500">
+                                    <option>Restaurante</option>
+                                    <option>Mezcalería</option>
+                                    <option>Cafetería</option>
+                                    <option>Bar / Antro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-xl p-8 card-step">
+                    <h2 class="text-2xl font-bold mb-6">Tus Platillos Estrella</h2>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-2xl flex flex-wrap md:flex-nowrap gap-3 items-center border border-slate-100">
+                            <input type="text" class="platillo-nombre flex-grow p-2 bg-white border rounded-xl" value="Costillas de Cordero en Salsa de Chile Pasilla">
+                            <input type="number" class="platillo-precio w-24 p-2 bg-white border rounded-xl" value="450">
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-2xl flex flex-wrap md:flex-nowrap gap-3 items-center border border-slate-100">
+                            <input type="text" class="platillo-nombre flex-grow p-2 bg-white border rounded-xl" value="Carpaccio de Betabel rostizado">
+                            <input type="number" class="platillo-precio w-24 p-2 bg-white border rounded-xl" value="165">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5">
+                <div class="bg-slate-900 text-white rounded-[2.5rem] p-8 shadow-2xl sticky top-24">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <span>📍</span> Vista Previa del Mapa
+                    </h3>
+                    
+                    <div id="contenedor-mapa" class="map-container mb-6 shadow-2xl border-2 border-white/10">
+                        </div>
+
+                    <p class="text-sm text-indigo-200 mb-8 italic leading-relaxed">
+                        "Detectamos automáticamente tu negocio para que solo tengas que confirmar los datos y empezar a recibir pedidos digitales."
+                    </p>
+
+                    <button onclick="finalizarRegistro()" class="w-full bg-indigo-500 hover:bg-indigo-400 text-white py-6 rounded-2xl font-black text-xl transition-all shadow-lg active:scale-95">
+                        ¡CONFIRMAR Y ACTIVAR! 🚀
+                    </button>
+                </div>
+            </div>
+
+        </div>
     </main>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. LEER LA URL AUTOMÁTICAMENTE
-            // Si la URL es: menuoaxaca.com/criollo/ o menuoaxaca.com/casa-oaxaca
-            const pathname = window.location.pathname; 
+            // EXTRACCIÓN SOLO DEL NOMBRE DE LA CARPETA
+            const path = window.location.pathname;
+            const partes = path.split('/').filter(p => p !== "" && !p.includes('.html'));
             
-            // Limpiamos la ruta para obtener solo el nombre de la carpeta final
-            const segmentos = pathname.split('/').filter(item => item !== "");
-            let nombreExtraido = segmentos.length > 0 ? segmentos[segmentos.length - 1] : "Oaxaca";
+            // Tomamos siempre el ÚLTIMO segmento de la URL
+            let negocioDetectado = partes.length > 0 ? partes[partes.length - 1] : "Nuevo Restaurante";
 
-            // Limpiamos guiones y decodificamos caracteres (ej: %20)
-            const nombreLimpio = decodeURIComponent(nombreExtraido).replace(/-/g, ' ');
+            // Limpiar nombre (reemplazar guiones por espacios y decodificar)
+            const nombreFinal = decodeURIComponent(negocioDetectado).replace(/-/g, ' ');
 
-            // 2. ACTUALIZAR INTERFAZ
-            document.getElementById('titulo-negocio').innerText = nombreLimpio;
-            document.getElementById('nombre-ubicacion').innerText = nombreLimpio;
-            document.getElementById('nombreNegocio').value = nombreLimpio.toUpperCase();
+            // Actualizar interfaz
+            document.getElementById('titulo-negocio').innerText = nombreFinal;
+            document.getElementById('inputNombre').value = nombreFinal.toUpperCase();
 
-            // 3. CARGAR EL MAPA BASADO EN EL NOMBRE EXTRAÍDO
-            // Agregamos "Oaxaca" a la búsqueda para mayor precisión en el mapa
-            const busquedaMapa = encodeURIComponent(nombreLimpio + " Oaxaca");
-            const mapaIframe = `
+            // Cargar Mapa basado solo en el nombre + Oaxaca
+            const query = encodeURIComponent(nombreFinal + " Oaxaca");
+            document.getElementById('contenedor-mapa').innerHTML = `
                 <iframe 
-                    width="100%" 
-                    height="100%" 
+                    width="100%" height="100%" 
                     frameborder="0" 
-                    scrolling="no" 
-                    marginheight="0" 
-                    marginwidth="0" 
-                    src="https://maps.google.com/maps?q=${busquedaMapa}&t=&z=16&ie=UTF8&iwloc=&output=embed">
+                    src="https://maps.google.com/maps?q=$${query}&t=&z=16&ie=UTF8&iwloc=&output=embed">
                 </iframe>`;
-            
-            document.getElementById('wrapper-mapa').innerHTML = mapaIframe;
         });
 
-        function enviarRegistro() {
-            // Lógica de WhatsApp (igual a la anterior)
-            const nombre = document.getElementById('nombreNegocio').value;
-            const tel = document.getElementById('telefono').value;
-            if(!tel) return alert("Indica un teléfono de contacto");
-            
-            const msg = `¡Hola! Registro para socio: ${nombre}. URL detectada: ${window.location.href}`;
-            window.open(`https://wa.me/2204891875?text=${encodeURIComponent(msg)}`, '_blank');
+        function finalizarRegistro() {
+            const nombre = document.getElementById('inputNombre').value;
+            const tel = document.getElementById('inputTel').value;
+
+            if(!tel) {
+                alert("Por favor, ingresa tu WhatsApp de contacto.");
+                return;
+            }
+
+            const mensaje = `¡Hola MenuOaxaca! 👋 Vengo de la página de registro. Mi negocio es *${nombre}* y quiero activar mi menú digital.`;
+            window.open(`https://wa.me/2204891875?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
     </script>
+
+    <footer class="py-12 text-center text-slate-400 text-sm border-t border-slate-200 mt-10">
+        <p>MenuOaxaca © 2026 | Tecnología para la tradición</p>
+    </footer>
 </body>
 </html>
