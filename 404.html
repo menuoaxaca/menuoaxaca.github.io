@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,39 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* RESET PARA ELIMINAR BORDE DERECHO */
-        html, body { 
-            overflow-x: hidden; 
-            margin: 0; 
-            padding: 0; 
-            width: 100%;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-        }
+        /* RESET MAESTRO - ELIMINA EL BORDE DE 1CM */
+        html, body { overflow-x: hidden; margin: 0; padding: 0; width: 100%; box-sizing: border-box; }
         body { font-family: 'Outfit', sans-serif; }
         .hero-gradient { background: linear-gradient(135deg, #4338ca 0%, #db2777 100%); }
         .card-step { border-left: 5px solid #6366f1; }
         
-        /* CONTENEDOR DE MAPA */
         .map-container { 
-            position: relative; 
-            padding-bottom: 45%; 
-            height: 0; 
-            overflow: hidden; 
-            border-radius: 2rem;
-            width: 100%;
+            position: relative; padding-bottom: 50%; height: 0; overflow: hidden; 
+            border-radius: 2rem; width: 100%; background: #f1f5f9;
         }
-        .map-container iframe { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border: 0; 
-        }
-
-        /* MODAL ANIMATION */
+        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .modal-active { display: flex !important; }
+        .benefit-card { transition: all 0.3s ease; }
+        .benefit-card:hover { transform: translateY(-5px); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -53,8 +35,9 @@
     </nav>
 
     <header class="hero-gradient text-white py-16 px-4 text-center">
+        <div class="inline-block px-4 py-1 bg-white/20 rounded-full text-sm font-bold mb-4 backdrop-blur-md">✨ PORTAL DE SOCIOS</div>
         <h1 id="titulo-negocio" class="text-4xl md:text-6xl font-extrabold mb-4 capitalize italic text-yellow-300">Cargando...</h1>
-        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">Tu ubicación y menú han sido pre-configurados. Confirma los detalles abajo.</p>
+        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">Digitaliza tu propuesta y conecta con miles de clientes en Oaxaca.</p>
     </header>
 
     <main class="max-w-6xl mx-auto py-8 px-4 md:px-6">
@@ -63,15 +46,15 @@
             <div class="bg-slate-900 rounded-[2.5rem] p-3 md:p-4 shadow-2xl overflow-hidden relative group">
                 <div class="flex items-center gap-3 mb-4 ml-2 mt-2">
                     <span class="bg-pink-500 text-white p-2 rounded-lg text-sm shadow-lg">📍</span>
-                    <h2 class="text-white font-bold text-base md:text-lg">Ubicación Registrada</h2>
+                    <h2 class="text-white font-bold text-base md:text-lg">Ubicación Detectada</h2>
                 </div>
                 
                 <div class="relative cursor-pointer" onclick="abrirMapa()">
                     <div id="contenedor-mapa" class="map-container border-2 md:border-4 border-white/5 pointer-events-none">
                         </div>
-                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/40 transition-all flex items-center justify-center">
-                        <span class="bg-white/95 text-indigo-900 px-6 py-3 rounded-full font-black text-sm shadow-2xl transform group-hover:scale-110 transition-transform flex items-center gap-2">
-                            🔍 VER MAPA AMPLIADO
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/40 transition-all flex items-center justify-center text-center px-4">
+                        <span class="bg-white/95 text-indigo-900 px-6 py-3 rounded-full font-black text-sm shadow-2xl transform group-hover:scale-110 transition-transform">
+                            🔍 CLICK PARA VER EN GRANDE
                         </span>
                     </div>
                 </div>
@@ -84,20 +67,36 @@
                 <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 card-step">
                     <h2 class="text-xl md:text-2xl font-bold mb-6 text-indigo-900 flex items-center gap-3">
                         <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
-                        Datos del Socio
+                        Identidad del Establecimiento
                     </h2>
                     <div class="space-y-4">
-                        <input type="text" id="inputNombre" class="w-full p-4 border-2 border-slate-100 rounded-2xl font-bold text-indigo-600 bg-slate-50 outline-none focus:border-indigo-300">
-                        <input type="tel" id="inputTel" placeholder="Tu WhatsApp (ej. 9511234567)" class="w-full p-4 border-2 border-orange-100 rounded-2xl outline-none focus:border-orange-500 shadow-sm">
+                        <div>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nombre Comercial</label>
+                            <input type="text" id="inputNombre" class="w-full p-4 border-2 border-slate-100 rounded-2xl font-bold text-indigo-600 bg-slate-50 outline-none">
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">WhatsApp de contacto</label>
+                                <input type="tel" id="inputTel" placeholder="951 000 0000" class="w-full p-4 border-2 border-orange-100 rounded-2xl outline-none focus:border-orange-500">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Giro</label>
+                                <select class="w-full p-4 border-2 border-slate-100 rounded-2xl bg-white outline-none">
+                                    <option>Restaurante</option>
+                                    <option>Mezcalería</option>
+                                    <option>Cafetería</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 card-step">
                     <h2 class="text-xl md:text-2xl font-bold mb-2 text-indigo-900 flex items-center gap-3">
                         <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
-                        Menú Real Extraído
+                        Menú Sugerido (Editable)
                     </h2>
-                    <p class="text-[10px] text-slate-400 mb-6 uppercase tracking-widest font-black italic">Basado en inteligencia de datos 2026</p>
+                    <p class="text-[10px] text-slate-400 mb-6 uppercase tracking-widest font-black italic">Verifica tus precios actuales</p>
                     <div id="contenedor-platillos" class="space-y-4">
                         </div>
                 </div>
@@ -105,45 +104,44 @@
 
             <div class="lg:col-span-5">
                 <div class="bg-white rounded-3xl p-8 shadow-2xl border border-slate-100 sticky top-28">
-                    <h3 class="text-2xl font-black mb-6 text-indigo-900">Beneficios Socio 2026</h3>
+                    <h3 class="text-2xl font-black mb-6 text-indigo-900">¿Qué incluye tu alta?</h3>
                     <ul class="space-y-4 mb-8">
-                        <li class="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                            <span class="bg-green-100 text-green-600 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">✓</span>
-                            Mapa interactivo personalizado.
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <span class="bg-green-100 text-green-600 p-1 rounded-full text-[10px]">✔</span>
+                            Menú Digital con código QR de alta velocidad.
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                            <span class="bg-green-100 text-green-600 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">✓</span>
-                            Actualización de precios en tiempo real.
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <span class="bg-green-100 text-green-600 p-1 rounded-full text-[10px]">✔</span>
+                            Ubicación optimizada en el mapa MenuOaxaca.
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                            <span class="bg-green-100 text-green-600 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">✓</span>
-                            Soporte técnico directo vía WhatsApp.
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <span class="bg-green-100 text-green-600 p-1 rounded-full text-[10px]">✔</span>
+                            Panel de cambios ilimitados.
                         </li>
                     </ul>
 
                     <button onclick="finalizarRegistro()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-6 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-95">
-                        CONFIRMAR Y ACTIVAR 🚀
+                        CONFIRMAR TODO 🚀
                     </button>
-                    <p class="text-[10px] text-center text-slate-400 mt-4 px-4 italic">Al hacer clic, recibirás tu código QR oficial en menos de 24 horas.</p>
+                    <p class="text-[10px] text-center text-slate-400 mt-4 italic">Al confirmar, un asesor validará tu información vía WhatsApp.</p>
                 </div>
             </div>
         </div>
     </main>
 
     <div id="modalMapa" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="relative w-full max-w-5xl h-[85vh] bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/20">
-            <button onclick="cerrarMapa()" class="absolute top-6 right-6 z-[110] bg-pink-600 text-white w-12 h-12 rounded-full font-bold shadow-2xl hover:bg-pink-700 transition-all text-xl">✕</button>
+        <div class="relative w-full max-w-5xl h-[85vh] bg-white rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <button onclick="cerrarMapa()" class="absolute top-6 right-6 z-[110] bg-pink-600 text-white w-12 h-12 rounded-full font-bold shadow-2xl">✕</button>
             <div id="mapaExpandido" class="w-full h-full"></div>
         </div>
     </div>
 
     <footer class="py-12 text-center text-slate-400 text-[10px] border-t border-slate-100 mt-10">
-        <p>MenuOaxaca © 2026 | El enlace digital de la gastronomía oaxaqueña</p>
+        <p>MenuOaxaca © 2026 | Impulsando la gastronomía oaxaqueña</p>
     </footer>
 
     <script>
-        // BASE DE DATOS E INTELIGENCIA
-         const baseDatosMenu = {
+          const baseDatosMenu = {
     // --- RESTAURANTES (50 items) ---
     "criollo": [{n: "Menú Degustación", p: 1250}, {n: "Tamal de Alcachofa", p: 185}, {n: "Pato en Manchamanteles", p: 480}],
     "casa oaxaca": [{n: "Salsa de Mesa", p: 145}, {n: "Lechón Confitado", p: 410}, {n: "Venado Marinado", p: 225}],
@@ -247,34 +245,32 @@
     "casamezcal": [{n: "Mezcal Galería", p: 165}, {n: "Copa de Vino", p: 130}, {n: "Bocadillos", p: 195}]
 };
 
+
         const platillosDefault = [
-            {n: "Tlayuda con Tasajo", p: 165},
+            {n: "Tlayuda con Tasajo", p: 165}, 
             {n: "Mole Negro Tradicional", p: 195},
             {n: "Mezcal Artesanal", p: 130}
         ];
 
-        let busquedaActual = "";
-
         document.addEventListener("DOMContentLoaded", function() {
-            const path = window.location.pathname;
-            const partes = path.split('/').filter(p => p !== "" && !p.includes('.html'));
-            let slug = partes.length > 0 ? partes[partes.length - 1] : "Restaurante";
-            let nombreLimpio = decodeURIComponent(slug).replace(/-/g, ' ');
+            // Extracción de nombre desde la carpeta de la URL
+            const urlPath = window.location.pathname;
+            const pathParts = urlPath.split('/').filter(p => p !== "" && !p.includes('.html'));
+            const slug = pathParts.pop() || "Restaurante";
+            const nombreLimpio = decodeURIComponent(slug).replace(/-/g, ' ');
 
             document.getElementById('titulo-negocio').innerText = nombreLimpio;
             document.getElementById('inputNombre').value = nombreLimpio.toUpperCase();
 
-            // Configurar búsqueda de mapa
-            busquedaActual = encodeURIComponent(nombreLimpio + " Oaxaca");
-            document.getElementById('contenedor-mapa').innerHTML = `
-                <iframe src="https://maps.google.com/?cid=11103765836512119699&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ{busquedaActual}&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>`;
+            // LÓGICA DE MAPA (ESTA ES LA QUE FUNCIONA BIEN)
+            const query = encodeURIComponent(nombreLimpio + " Oaxaca");
+            const iframeHTML = `<iframe src="https://maps.google.com/maps?q=${query}&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>`;
+            document.getElementById('contenedor-mapa').innerHTML = iframeHTML;
 
-            // Cargar Platillos
+            // CARGAR PLATILLOS EDITABLES
             const lista = baseDatosMenu[nombreLimpio.toLowerCase()] || platillosDefault;
-            const contenedor = document.getElementById('contenedor-platillos');
-            
-            contenedor.innerHTML = lista.map(p => `
-                <div class="p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-slate-100 shadow-sm hover:border-indigo-200 transition-colors">
+            document.getElementById('contenedor-platillos').innerHTML = lista.map(p => `
+                <div class="p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-slate-100 shadow-sm">
                     <input type="text" class="font-bold text-slate-700 bg-transparent flex-grow outline-none text-sm md:text-base" value="${p.n}">
                     <div class="flex items-center bg-white px-3 py-1 rounded-xl shadow-inner ml-2">
                         <span class="text-green-600 font-bold">$</span>
@@ -284,11 +280,12 @@
             `).join('');
         });
 
-        // FUNCIONES DE MODAL
         function abrirMapa() {
             const modal = document.getElementById('modalMapa');
             const mapaExp = document.getElementById('mapaExpandido');
-            mapaExp.innerHTML = `<iframe width="100%" height="100%" frameborder="0" src="https://maps.google.com/?cid=3264511385074708649&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ{busquedaActual}&t=&z=18&ie=UTF8&iwloc=&output=embed"></iframe>`;
+            // Carga la versión grande del mapa
+            const urlGrande = document.getElementById('contenedor-mapa').querySelector('iframe').src.replace('z=16', 'z=18');
+            mapaExp.innerHTML = `<iframe width="100%" height="100%" frameborder="0" src="${urlGrande}"></iframe>`;
             modal.classList.add('modal-active');
             document.body.style.overflow = 'hidden';
         }
@@ -301,8 +298,8 @@
         function finalizarRegistro() {
             const nombre = document.getElementById('inputNombre').value;
             const tel = document.getElementById('inputTel').value;
-            if(!tel) { alert("Ingresa tu número de WhatsApp para continuar."); return; }
-            const msg = `¡Hola! Soy de *${nombre}*. Acabo de confirmar mi menú y ubicación. Deseo activar mi portal de Socio 2026. 🚀`;
+            if(!tel) { alert("Ingresa tu WhatsApp para continuar."); return; }
+            const msg = `¡Hola MenuOaxaca! Soy de *${nombre}*. Acabo de confirmar mi ubicación y menú en el portal. ¿Podemos activar mi código QR?`;
             window.open(`https://wa.me/2204891875?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
