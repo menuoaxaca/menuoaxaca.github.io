@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Corrección de borde derecho y scroll horizontal */
+        /* RESET PARA ELIMINAR BORDE DERECHO */
         html, body { 
             overflow-x: hidden; 
             margin: 0; 
@@ -16,15 +15,14 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
-
         body { font-family: 'Outfit', sans-serif; }
         .hero-gradient { background: linear-gradient(135deg, #4338ca 0%, #db2777 100%); }
         .card-step { border-left: 5px solid #6366f1; }
         
-        /* Contenedor de mapa corregido para no desbordar */
+        /* CONTENEDOR DE MAPA */
         .map-container { 
             position: relative; 
-            padding-bottom: 50%; 
+            padding-bottom: 45%; 
             height: 0; 
             overflow: hidden; 
             border-radius: 2rem;
@@ -38,97 +36,114 @@
             height: 100%; 
             border: 0; 
         }
+
+        /* MODAL ANIMATION */
+        .modal-active { display: flex !important; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
- <nav class="w-full p-4 bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 flex justify-between items-center px-4 md:px-8">
-    <a href="https://menuoaxaca.com" class="transition-opacity hover:opacity-80">
-        <div class="text-2xl font-bold text-indigo-700">
-            Menu<span class="text-pink-600">Oaxaca</span>
+    <nav class="w-full p-4 bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 flex justify-between items-center px-4 md:px-8">
+        <a href="https://menuoaxaca.com" class="transition-opacity hover:opacity-80">
+            <div class="text-2xl font-bold text-indigo-700">Menu<span class="text-pink-600">Oaxaca</span></div>
+        </a>
+        <div class="text-[10px] md:text-xs font-bold bg-green-100 text-green-700 px-3 py-1.5 rounded-full tracking-widest uppercase">
+            Socios Activos 2026
         </div>
-    </a>
-    <div class="text-[10px] md:text-xs font-bold bg-green-100 text-green-700 px-3 py-1.5 rounded-full tracking-widest uppercase">
-        Socios Activos 2026
-    </div>
-</nav>
+    </nav>
+
     <header class="hero-gradient text-white py-16 px-4 text-center">
         <h1 id="titulo-negocio" class="text-4xl md:text-6xl font-extrabold mb-4 capitalize italic text-yellow-300">Cargando...</h1>
-        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">Tu ubicación ha sido detectada con éxito. Confirma tu menú digital.</p>
+        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">Tu ubicación y menú han sido pre-configurados. Confirma los detalles abajo.</p>
     </header>
 
     <main class="max-w-6xl mx-auto py-8 px-4 md:px-6">
         
         <section class="mb-10 w-full">
-            <div class="bg-slate-900 rounded-[2.5rem] p-3 md:p-4 shadow-2xl overflow-hidden">
+            <div class="bg-slate-900 rounded-[2.5rem] p-3 md:p-4 shadow-2xl overflow-hidden relative group">
                 <div class="flex items-center gap-3 mb-4 ml-2 mt-2">
-                    <span class="bg-pink-500 text-white p-2 rounded-lg text-sm">📍</span>
-                    <h2 class="text-white font-bold text-base md:text-lg">Ubicación Registrada en Oaxaca</h2>
+                    <span class="bg-pink-500 text-white p-2 rounded-lg text-sm shadow-lg">📍</span>
+                    <h2 class="text-white font-bold text-base md:text-lg">Ubicación Registrada</h2>
                 </div>
-                <div id="contenedor-mapa" class="map-container border-2 md:border-4 border-white/5">
+                
+                <div class="relative cursor-pointer" onclick="abrirMapa()">
+                    <div id="contenedor-mapa" class="map-container border-2 md:border-4 border-white/5 pointer-events-none">
+                        </div>
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                        <span class="bg-white/95 text-indigo-900 px-6 py-3 rounded-full font-black text-sm shadow-2xl transform group-hover:scale-110 transition-transform flex items-center gap-2">
+                            🔍 VER MAPA AMPLIADO
+                        </span>
                     </div>
+                </div>
             </div>
         </section>
 
         <div class="grid lg:grid-cols-12 gap-8 items-start">
             
-            <div class="lg:col-span-7 space-y-6">
+            <div class="lg:col-span-7 space-y-8">
                 <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 card-step">
                     <h2 class="text-xl md:text-2xl font-bold mb-6 text-indigo-900 flex items-center gap-3">
-                        <span class="bg-indigo-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs">1</span>
-                        Identidad del Negocio
+                        <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                        Datos del Socio
                     </h2>
                     <div class="space-y-4">
-                        <div>
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nombre Comercial</label>
-                            <input type="text" id="inputNombre" class="w-full p-4 border-2 border-slate-100 rounded-2xl font-bold text-indigo-600 bg-slate-50 outline-none">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">WhatsApp de contacto</label>
-                            <input type="tel" id="inputTel" placeholder="951 XXX XXXX" class="w-full p-4 border-2 border-orange-100 rounded-2xl outline-none focus:border-orange-500">
-                        </div>
+                        <input type="text" id="inputNombre" class="w-full p-4 border-2 border-slate-100 rounded-2xl font-bold text-indigo-600 bg-slate-50 outline-none focus:border-indigo-300">
+                        <input type="tel" id="inputTel" placeholder="Tu WhatsApp (ej. 9511234567)" class="w-full p-4 border-2 border-orange-100 rounded-2xl outline-none focus:border-orange-500 shadow-sm">
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 card-step">
                     <h2 class="text-xl md:text-2xl font-bold mb-2 text-indigo-900 flex items-center gap-3">
-                        <span class="bg-indigo-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs">2</span>
-                        Menú sugerido
+                        <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                        Menú Real Extraído
                     </h2>
-                    <p class="text-[10px] text-slate-400 mb-6 uppercase tracking-widest font-bold italic">Basado en tu establecimiento</p>
+                    <p class="text-[10px] text-slate-400 mb-6 uppercase tracking-widest font-black italic">Basado en inteligencia de datos 2026</p>
                     <div id="contenedor-platillos" class="space-y-4">
                         </div>
                 </div>
             </div>
 
             <div class="lg:col-span-5">
-                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 lg:sticky lg:top-28">
-                    <h3 class="text-xl md:text-2xl font-black mb-6 text-indigo-900 text-center lg:text-left">¡Tu Menú hoy mismo!</h3>
-                    
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-sm text-slate-600">
-                            <span class="text-green-500 font-bold">✓</span> Ahorro total en impresiones.
+                <div class="bg-white rounded-3xl p-8 shadow-2xl border border-slate-100 sticky top-28">
+                    <h3 class="text-2xl font-black mb-6 text-indigo-900">Beneficios Socio 2026</h3>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                            <span class="bg-green-100 text-green-600 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">✓</span>
+                            Mapa interactivo personalizado.
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-slate-600">
-                            <span class="text-green-500 font-bold">✓</span> Código QR de alta velocidad.
+                        <li class="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                            <span class="bg-green-100 text-green-600 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">✓</span>
+                            Actualización de precios en tiempo real.
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-slate-600">
-                            <span class="text-green-500 font-bold">✓</span> Indexación en buscador turístico.
+                        <li class="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                            <span class="bg-green-100 text-green-600 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">✓</span>
+                            Soporte técnico directo vía WhatsApp.
                         </li>
                     </ul>
 
-                    <button onclick="finalizarRegistro()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-95">
-                        ¡DARME DE ALTA YA! 🚀
+                    <button onclick="finalizarRegistro()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-6 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-95">
+                        CONFIRMAR Y ACTIVAR 🚀
                     </button>
-                    <p class="text-[10px] text-center text-slate-400 mt-4 italic">Confirmaremos tus datos vía WhatsApp para activar tu panel.</p>
+                    <p class="text-[10px] text-center text-slate-400 mt-4 px-4 italic">Al hacer clic, recibirás tu código QR oficial en menos de 24 horas.</p>
                 </div>
             </div>
-
         </div>
     </main>
 
+    <div id="modalMapa" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative w-full max-w-5xl h-[85vh] bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/20">
+            <button onclick="cerrarMapa()" class="absolute top-6 right-6 z-[110] bg-pink-600 text-white w-12 h-12 rounded-full font-bold shadow-2xl hover:bg-pink-700 transition-all text-xl">✕</button>
+            <div id="mapaExpandido" class="w-full h-full"></div>
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-slate-400 text-[10px] border-t border-slate-100 mt-10">
+        <p>MenuOaxaca © 2026 | El enlace digital de la gastronomía oaxaqueña</p>
+    </footer>
+
     <script>
-       const baseDatosMenu = {
+        // BASE DE DATOS E INTELIGENCIA
+         const baseDatosMenu = {
     // --- RESTAURANTES (50 items) ---
     "criollo": [{n: "Menú Degustación", p: 1250}, {n: "Tamal de Alcachofa", p: 185}, {n: "Pato en Manchamanteles", p: 480}],
     "casa oaxaca": [{n: "Salsa de Mesa", p: 145}, {n: "Lechón Confitado", p: 410}, {n: "Venado Marinado", p: 225}],
@@ -231,11 +246,14 @@
     "cervecería tierra blanca": [{n: "Porter Local", p: 105}, {n: "Blonde Ale", p: 95}, {n: "Hot Dog Oax", p: 120}],
     "casamezcal": [{n: "Mezcal Galería", p: 165}, {n: "Copa de Vino", p: 130}, {n: "Bocadillos", p: 195}]
 };
+
         const platillosDefault = [
             {n: "Tlayuda con Tasajo", p: 165},
             {n: "Mole Negro Tradicional", p: 195},
-            {n: "Mezcal de la Casa", p: 130}
+            {n: "Mezcal Artesanal", p: 130}
         ];
+
+        let busquedaActual = "";
 
         document.addEventListener("DOMContentLoaded", function() {
             const path = window.location.pathname;
@@ -246,37 +264,47 @@
             document.getElementById('titulo-negocio').innerText = nombreLimpio;
             document.getElementById('inputNombre').value = nombreLimpio.toUpperCase();
 
-            const query = encodeURIComponent(nombreLimpio + " Oaxaca");
+            // Configurar búsqueda de mapa
+            busquedaActual = encodeURIComponent(nombreLimpio + " Oaxaca");
             document.getElementById('contenedor-mapa').innerHTML = `
-                <iframe 
-                    src="https://maps.google.com/maps?q=${query}&t=&z=16&ie=UTF8&iwloc=&output=embed">
-                </iframe>`;
+                <iframe src="https://maps.google.com/?cid=11103765836512119699&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ{busquedaActual}&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>`;
 
+            // Cargar Platillos
             const lista = baseDatosMenu[nombreLimpio.toLowerCase()] || platillosDefault;
             const contenedor = document.getElementById('contenedor-platillos');
             
             contenedor.innerHTML = lista.map(p => `
-                <div class="p-3 md:p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-slate-100 shadow-sm">
+                <div class="p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-slate-100 shadow-sm hover:border-indigo-200 transition-colors">
                     <input type="text" class="font-bold text-slate-700 bg-transparent flex-grow outline-none text-sm md:text-base" value="${p.n}">
                     <div class="flex items-center bg-white px-3 py-1 rounded-xl shadow-inner ml-2">
                         <span class="text-green-600 font-bold">$</span>
-                        <input type="number" class="w-14 md:w-16 text-right font-bold outline-none" value="${p.p}">
+                        <input type="number" class="w-16 text-right font-bold outline-none" value="${p.p}">
                     </div>
                 </div>
             `).join('');
         });
 
+        // FUNCIONES DE MODAL
+        function abrirMapa() {
+            const modal = document.getElementById('modalMapa');
+            const mapaExp = document.getElementById('mapaExpandido');
+            mapaExp.innerHTML = `<iframe width="100%" height="100%" frameborder="0" src="https://maps.google.com/?cid=3264511385074708649&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ{busquedaActual}&t=&z=18&ie=UTF8&iwloc=&output=embed"></iframe>`;
+            modal.classList.add('modal-active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarMapa() {
+            document.getElementById('modalMapa').classList.remove('modal-active');
+            document.body.style.overflow = 'auto';
+        }
+
         function finalizarRegistro() {
             const nombre = document.getElementById('inputNombre').value;
             const tel = document.getElementById('inputTel').value;
-            if(!tel) { alert("Ingresa tu WhatsApp."); return; }
-            const msg = `¡Hola! Soy de *${nombre}*. Confirmé mis datos. Quiero mi menú digital 2026.`;
+            if(!tel) { alert("Ingresa tu número de WhatsApp para continuar."); return; }
+            const msg = `¡Hola! Soy de *${nombre}*. Acabo de confirmar mi menú y ubicación. Deseo activar mi portal de Socio 2026. 🚀`;
             window.open(`https://wa.me/2204891875?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
-
-    <footer class="py-10 text-center text-slate-400 text-[10px] md:text-xs">
-        <p>MenuOaxaca © 2026 | Impulsando la gastronomía oaxaqueña</p>
-    </footer>
 </body>
 </html>
