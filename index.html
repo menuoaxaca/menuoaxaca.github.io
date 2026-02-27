@@ -251,24 +251,62 @@ body.day-mode #cart-panel {
         <button onclick="sendWA()" style="width:100%; padding:20px; border-radius:40px; background:var(--oax-pink); color:#000; font-family:'Syncopate'; font-weight:900; cursor:pointer; border:none;">ENVIAR ORDEN</button>
     </div>
 </div>
-    <button id="btn-cerrar-chatbot" onclick="cerrarJotform()" style="position: fixed; top: 15px; right: 15px; z-index: 2147483647; background-color: #ff4c4c; color: white; border: none; border-radius: 50%; width: 45px; height: 45px; font-size: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center;">
-  X
-</button>
+<style>
+  #cerrar-jotform-custom {
+    display: none; 
+    position: fixed; 
+    top: 12px; 
+    right: 12px; 
+    z-index: 2147483647; /* Máxima prioridad sobre el chat */
+    background-color: #000000; 
+    color: #ffffff; 
+    border: 2px solid #ffffff; 
+    border-radius: 50%; 
+    width: 38px; 
+    height: 38px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 1;
+    font-family: Arial, sans-serif;
+  }
+</style>
+
+<button id="cerrar-jotform-custom" onclick="forzarCierreChat()">✕</button>
 
 <script src='https://cdn.jotfor.ms/agent/embedjs/019c9e0e5e4e7d0e9b4c856717cf48a7c744/embed.js?isVoice=1'></script>
 
 <script>
-  function cerrarJotform() {
-    // Buscamos cualquier iframe, etiqueta o contenedor inyectado por Jotform y lo ocultamos
-    const elementosJotform = document.querySelectorAll('iframe[src*="jotfor.ms"], iframe[src*="jotform"], [id*="jotform"], jotform-agent');
+  (function() {
+    const btn = document.getElementById('cerrar-jotform-custom');
     
-    elementosJotform.forEach(elemento => {
-      elemento.style.display = 'none';
-    });
+    // Función para cerrar y limpiar la pantalla
+    window.forzarCierreChat = function() {
+      const chatElement = document.querySelector('iframe[src*="jotfor.ms"], jotform-agent, .jotform-agent-container');
+      if (chatElement) {
+        chatElement.style.display = 'none'; // Oculta el chat
+      }
+      btn.style.display = 'none'; // Oculta la X
+    };
 
-    // Ocultamos también nuestro botón "X" para que deje la pantalla limpia
-    document.getElementById('btn-cerrar-chatbot').style.display = 'none';
-  }
+    // Monitor que revisa si el chat está abierto (cada 500ms)
+    setInterval(() => {
+      const chatContainer = document.querySelector('iframe[src*="jotfor.ms"], jotform-agent');
+      
+      if (chatContainer) {
+        // Si el chat mide más de 250px de alto, es que está abierto
+        if (chatContainer.offsetHeight > 250) {
+          btn.style.display = 'flex';
+        } else {
+          btn.style.display = 'none';
+        }
+      }
+    }, 500);
+  })();
 </script>
 
 <script>
