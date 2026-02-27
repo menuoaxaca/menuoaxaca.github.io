@@ -275,40 +275,8 @@ body.day-mode #cart-panel {
     font-family: Arial, sans-serif;
   }
 </style>
-
-<button id="cerrar-jotform-custom" onclick="forzarCierreChat()">✕</button>
-
-<script src='https://cdn.jotfor.ms/agent/embedjs/019c9e0e5e4e7d0e9b4c856717cf48a7c744/embed.js?isVoice=1'></script>
-
-<script>
-  (function() {
-    const btn = document.getElementById('cerrar-jotform-custom');
-    
-    // Función para cerrar y limpiar la pantalla
-    window.forzarCierreChat = function() {
-      const chatElement = document.querySelector('iframe[src*="jotfor.ms"], jotform-agent, .jotform-agent-container');
-      if (chatElement) {
-        chatElement.style.display = 'none'; // Oculta el chat
-      }
-      btn.style.display = 'none'; // Oculta la X
-    };
-
-    // Monitor que revisa si el chat está abierto (cada 500ms)
-    setInterval(() => {
-      const chatContainer = document.querySelector('iframe[src*="jotfor.ms"], jotform-agent');
-      
-      if (chatContainer) {
-        // Si el chat mide más de 250px de alto, es que está abierto
-        if (chatContainer.offsetHeight > 250) {
-          btn.style.display = 'flex';
-        } else {
-          btn.style.display = 'none';
-        }
-      }
-    }, 500);
-  })();
+<script src='https://cdn.jotfor.ms/agent/embedjs/019c9e0e5e4e7d0e9b4c856717cf48a7c744/embed.js'>
 </script>
-
 <script>
     function toggleTheme() {
     // 1. Cambia la clase en el body
