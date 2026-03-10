@@ -799,7 +799,38 @@ function searchProducts() {
     });
 }
 </script>
-  
+  <script src='https://cdn.jotfor.ms/s/umd/3a15c595700/for-embedded-agent.js'></script>
+<a class="btn modal-019c9e0e5e4e7d0e9b4c856717cf48a7c744" style="
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 12px 18px;
+  font-family: inherit;
+  background-color: #0075E3;
+  border: 1px solid #0075E3;
+  color: #FFFFFF;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+"> Sunny: Asistente de Gastronomía Oaxaqueña</a>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('.modal-019c9e0e5e4e7d0e9b4c856717cf48a7c744').addEventListener(
+      'click',
+      function() {
+        window.AgentInitializer.initModalView({
+          rootId: "JotformAgent-019c9e0e5e4e7d0e9b4c856717cf48a7c744",
+          formID: "019c9e0e5e4e7d0e9b4c856717cf48a7c744",
+          queryParams: ["skipWelcome=1"],
+          domain: "https://www.jotform.com",
+          isInitialOpen: true,
+          isDraggable: false,
+          variant: false,
+          isVoice: true
+        });
+      });
+  });
+</script>
 <!--End of Tawk.to Script-->
   <div id="search-trigger" onclick="toggleSearchModal()" style="position: fixed; bottom: 85px; right: 20px; width: 60px; height: 60px; background: var(--oax-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000; transition: 0.3s;">
     <span style="font-size: 1.5rem;">🔍</span>
